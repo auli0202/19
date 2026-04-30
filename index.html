@@ -137,12 +137,6 @@ html.dark .header{
 .action-btn:hover{background:var(--accent-soft);border-color:var(--accent);}
 .action-btn:active{transform:scale(.88);}
 
-/* Mini toggle button */
-.header-collapse-btn{display:none;}
-@media(max-width:640px){
-  .header-collapse-btn{display:flex!important;}
-}
-
 /* Stats row */
 .stats-row{display:flex;gap:.35rem;}
 .stat-chip{
@@ -198,16 +192,39 @@ select{cursor:pointer;appearance:none;
 .btn-outline{background:var(--card-bg);color:var(--text-main);border-color:var(--border);}
 .btn-outline:hover{border-color:var(--accent);color:var(--accent);}
 
-/* Search buttons row */
-.search-buttons-row{display:flex;gap:.3rem;flex-wrap:wrap;}
-.search-btn{
-  padding:.4rem .65rem;border-radius:var(--radius-sm);border:1.5px solid var(--border);
-  background:var(--card-bg);color:var(--text-main);font-size:.7rem;font-weight:700;
-  cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:.25rem;
-  transition:all var(--transition);
+/* Category Toggle */
+.cat-toggle-wrapper{display:none;position:relative;width:100%;}
+@media(max-width:767px){
+  .cat-toggle-wrapper{display:block;grid-column:1/-1!important;}
 }
-.search-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft);}
-.search-btn:active{transform:scale(.94);}
+.cat-toggle-btn{
+  width:100%;display:flex;align-items:center;justify-content:space-between;
+  padding:.6rem .8rem;border-radius:var(--radius-sm);border:1.5px solid var(--border);
+  background:var(--card-bg);color:var(--text-main);font-size:.9rem;font-weight:700;
+  cursor:pointer;font-family:inherit;transition:all var(--transition);
+}
+.cat-toggle-btn:hover{border-color:var(--accent);background:var(--accent-soft);}
+.cat-toggle-btn.open{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);}
+.cat-toggle-icon{transition:transform .3s;font-size:1rem;}
+.cat-toggle-btn.open .cat-toggle-icon{transform:rotate(180deg);}
+
+.cat-dropdown{
+  position:absolute;top:100%;left:0;right:0;margin-top:.3rem;
+  background:var(--card-bg);border:1.5px solid var(--accent);border-radius:var(--radius-md);
+  box-shadow:var(--shadow-md);z-index:100;max-height:0;overflow:hidden;
+  transition:max-height .3s cubic-bezier(.25,.46,.45,.94);
+}
+.cat-dropdown.open{max-height:300px;overflow-y:auto;}
+.cat-option{
+  display:block;width:100%;padding:.65rem .8rem;text-align:left;
+  border:none;background:none;color:var(--text-main);font-size:.85rem;
+  font-weight:600;font-family:inherit;cursor:pointer;
+  transition:background var(--transition),color var(--transition);
+  border-bottom:1px solid var(--border);
+}
+.cat-option:last-child{border-bottom:none;}
+.cat-option:hover{background:var(--accent-soft);color:var(--accent);}
+.cat-option.selected{background:var(--accent);color:#fff;font-weight:700;}
 
 /* ═══════════ WORD GRID ═══════════ */
 .word-grid{display:grid;grid-template-columns:1fr;gap:.75rem;}
@@ -248,10 +265,20 @@ select{cursor:pointer;appearance:none;
   font-size:.55rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;
   background:var(--accent-soft);color:var(--accent);padding:2px 7px;border-radius:99px;
 }
-.c-imp{font-size:.75rem;}
 
 .card-actions{display:flex;gap:.35rem;margin-top:.7rem;flex-wrap:wrap;align-items:center;}
 .card-actions .btn{font-size:.7rem;padding:.35rem .65rem;min-height:auto;}
+
+/* Card search buttons */
+.card-search-row{display:flex;gap:.3rem;flex-wrap:wrap;margin-top:.6rem;padding-top:.6rem;border-top:1px solid var(--border);}
+.card-search-btn{
+  flex:1;min-width:70px;padding:.4rem .6rem;border-radius:var(--radius-sm);border:1.5px solid var(--border);
+  background:var(--card-bg);color:var(--text-sub);font-size:.65rem;font-weight:700;
+  cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:.25rem;
+  transition:all var(--transition);
+}
+.card-search-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft);}
+.card-search-btn:active{transform:scale(.94);}
 
 /* Review badge */
 .review-badge{
@@ -260,7 +287,6 @@ select{cursor:pointer;appearance:none;
   border:1px solid var(--review);border-radius:99px;
   font-size:.55rem;font-weight:800;padding:2px 7px;letter-spacing:.04em;
 }
-.wcard.reviewed .review-badge{display:block;}
 
 /* ═══════════ IMPORTANCE STARS ═══════════ */
 .stars{color:#f59e0b;font-size:.82rem;letter-spacing:1px;}
@@ -305,6 +331,18 @@ select{cursor:pointer;appearance:none;
 .modal-lbl{font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--text-sub);margin-bottom:.35rem;}
 .modal-block{margin-bottom:.9rem;}
 
+/* Modal search row */
+.modal-search-row{
+  display:flex;gap:.4rem;flex-wrap:wrap;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);
+}
+.modal-search-btn{
+  flex:1;min-width:80px;padding:.5rem .7rem;border-radius:var(--radius-sm);border:1.5px solid var(--border);
+  background:var(--card-bg);color:var(--text-sub);font-size:.75rem;font-weight:700;
+  cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:.3rem;
+  transition:all var(--transition);
+}
+.modal-search-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft);}
+
 /* ═══════════ PAGINATION ═══════════ */
 #pag-box{display:flex;align-items:center;gap:.3rem;flex-wrap:wrap;justify-content:center;padding:.85rem 0;}
 
@@ -344,7 +382,7 @@ html.dark .skeleton-card::after{background:linear-gradient(90deg,transparent 30%
 html.dark #toast{background:#334155;}
 @media(min-width:768px){#toast{bottom:1.5rem;}}
 
-/* ═══════════ BOTTOM NAV (mobile) ═══════════ */
+/* ═══════════ BOTTOM NAV ═══════════ */
 .bottom-nav{
   position:fixed;bottom:0;left:0;right:0;height:var(--nav-h);
   background:linear-gradient(180deg,rgba(248,250,255,0.82) 0%,rgba(240,244,255,0.92) 100%);
@@ -359,6 +397,15 @@ html.dark .bottom-nav{
   border-top:1px solid rgba(255,255,255,0.08);
   box-shadow:0 -1px 0 rgba(255,255,255,.05) inset,0 -4px 24px rgba(0,0,0,.4);
 }
+
+/* NAV COLLAPSE */
+.nav-collapse-toggle{
+  position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:40px;height:4px;background:var(--border);border-radius:2px;
+  cursor:pointer;margin-top:.3rem;transition:all .3s;
+}
+.nav-collapse-toggle:hover{background:var(--accent);}
+
 .nav-item{
   border:none;background:none;display:flex;flex-direction:column;
   align-items:center;justify-content:center;color:var(--text-sub);
@@ -376,6 +423,9 @@ html.dark .bottom-nav{
 .nav-icon{font-size:1.2rem;line-height:1;display:flex;align-items:center;justify-content:center;height:1.3rem;}
 .nav-label{font-size:.54rem;font-weight:700;margin-top:3px;letter-spacing:.02em;}
 
+.bottom-nav.collapsed{height:0.8rem!important;}
+.bottom-nav.collapsed .nav-item,.bottom-nav.collapsed .nav-label{display:none;}
+
 /* Desktop nav */
 .desktop-nav{display:none;gap:.2rem;flex-wrap:wrap;align-items:center;}
 .d-nav-item{
@@ -390,7 +440,6 @@ html.dark .bottom-nav{
   .bottom-nav{display:none!important;}
   body{padding-bottom:2.5rem;}
   #nav-toggle{display:none!important;}
-  .header-collapse-btn{display:none!important;}
   .word-grid{grid-template-columns:repeat(auto-fill,minmax(300px,1fr));}
 }
 
@@ -403,8 +452,7 @@ section{animation:fadeUp .35s cubic-bezier(.25,.46,.45,.94) both;}
   .desktop-nav{display:none;}
   .controls{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;}
   #search-input{grid-column:span 2;}
-  #f-cat{grid-column:span 2;display:none;}
-  #f-cat-toggle{grid-column:span 2;}
+  #f-imp,#f-sort{grid-column:span 1;}
   .main-container{padding:.5rem;}
   .stat-chip{height:2.5rem;}
   .stat-chip .chip-val{font-size:.85rem;}
@@ -413,12 +461,9 @@ section{animation:fadeUp .35s cubic-bezier(.25,.46,.45,.94) both;}
 @media(max-width:480px){
   .controls{grid-template-columns:1fr;}
   #search-input{grid-column:span 1;}
-  #f-cat-toggle{grid-column:span 1;}
   .stats-row{gap:.25rem;}
   .stat-chip .chip-val{font-size:.8rem;}
   .stat-chip .chip-label{font-size:.4rem;}
-  .search-buttons-row{gap:.25rem;}
-  .search-btn{padding:.3rem .5rem;font-size:.65rem;}
 }
 
 /* ═══════════ MOBILE MENU ═══════════ */
@@ -782,7 +827,7 @@ section{animation:fadeUp .35s cubic-bezier(.25,.46,.45,.94) both;}
         <button class="d-nav-item" data-view="dashboard" onclick="showV('dashboard')">📊 Dashboard</button>
       </nav>
       <div class="header-actions">
-        <button class="action-btn header-collapse-btn" id="header-collapse-toggle" title="Minimize header" aria-label="Toggle header size">═</button>
+        <button class="action-btn" id="header-collapse-toggle" title="Minimize header" aria-label="Toggle header size">═</button>
         <button class="action-btn" id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">🌙</button>
         <button class="action-btn" id="f-inc" title="Increase font size" aria-label="Increase font" style="font-size:.65rem;font-weight:800">A+</button>
         <button class="action-btn" id="f-dec" title="Decrease font size" aria-label="Decrease font" style="font-size:.65rem;font-weight:800">A-</button>
@@ -855,13 +900,21 @@ section{animation:fadeUp .35s cubic-bezier(.25,.46,.45,.94) both;}
     <section id="v-browse">
       <div class="controls">
         <input id="search-input" type="search" placeholder="🔍 Search…" oninput="curPg=1;renderBrowse()" autocomplete="off">
-        <div id="f-cat-toggle" style="grid-column:span 2;display:none;justify-content:space-between;align-items:center;padding:.35rem .6rem;border:1.5px solid var(--border);background:var(--card-bg);border-radius:var(--radius-sm);cursor:pointer;font-weight:700;font-size:.85rem" onclick="toggleCategorySelect()">
-          <span id="f-cat-label">📂 All Categories</span>
-          <span>▼</span>
+        
+        <!-- Category Toggle for Mobile -->
+        <div class="cat-toggle-wrapper">
+          <button class="cat-toggle-btn" onclick="toggleCategoryDropdown()">
+            <span id="f-cat-label">📂 All Categories</span>
+            <span class="cat-toggle-icon">▼</span>
+          </button>
+          <div class="cat-dropdown" id="cat-dropdown"></div>
         </div>
-        <select id="f-cat" onchange="curPg=1;renderBrowse()">
+
+        <!-- Desktop category select -->
+        <select id="f-cat" onchange="curPg=1;updateCategoryLabel();renderBrowse()" style="display:none;">
           <option value="">All Categories</option>
         </select>
+
         <select id="f-imp" onchange="curPg=1;renderBrowse()">
           <option value="">All Importance</option>
           <option value="5">⭐⭐⭐⭐⭐ (5)</option>
@@ -875,10 +928,6 @@ section{animation:fadeUp .35s cubic-bezier(.25,.46,.45,.94) both;}
           <option value="imp-asc">Sort: Importance ↑</option>
           <option value="newest">Sort: Newest</option>
         </select>
-        <div class="search-buttons-row">
-          <button class="search-btn" onclick="searchGoogle()" title="Search on Google"><span>🔍</span>Google</button>
-          <button class="search-btn" onclick="searchChatGPT()" title="Ask ChatGPT"><span>💬</span>ChatGPT</button>
-        </div>
       </div>
       <div id="grid-browse" class="word-grid" role="list"></div>
       <div id="pag-box" role="navigation" aria-label="Pagination">
@@ -941,7 +990,7 @@ section{animation:fadeUp .35s cubic-bezier(.25,.46,.45,.94) both;}
           </button>
         </div>
 
-        <!-- Review buttons (shown after reveal) -->
+        <!-- Review buttons -->
         <div class="fc-review-row" id="fc-review-row" style="display:none">
           <button class="fc-review-btn btn-wrong" onclick="markFC('wrong')">❌ Wrong</button>
           <button class="fc-review-btn btn-review" onclick="markFC('review')">🔖 Review</button>
@@ -1036,6 +1085,7 @@ section{animation:fadeUp .35s cubic-bezier(.25,.46,.45,.94) both;}
 
 <!-- ═══════════ BOTTOM NAV ═══════════ -->
 <nav class="bottom-nav" id="main-nav" aria-label="Main navigation">
+  <div class="nav-collapse-toggle" id="nav-collapse-toggle"></div>
   <button class="nav-item active" data-view="browse" onclick="showV('browse')">
     <div class="nav-icon">📚</div><div class="nav-label">Browse</div>
   </button>
@@ -1062,6 +1112,7 @@ let currentFontSize = parseInt(localStorage.getItem('qaFont')) || 16;
 let statFilter = '';
 let filteredList = [];
 let headerMini = false;
+let navCollapsed = false;
 
 // Flashcard state
 let fcList = [];
@@ -1095,7 +1146,6 @@ function showToast(msg, dur=2500){
 function esc(s){ return (s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;'); }
 function sanitizeText(text) {
   if(!text) return '';
-  // Remove emoji
   return text.replace(/[\p{Emoji}]/gu, ' ').replace(/\s+/g,' ').trim();
 }
 
@@ -1128,6 +1178,14 @@ document.getElementById('header-collapse-toggle').onclick = ()=>{
   const spacer = document.getElementById('header-spacer');
   header.classList.toggle('mini', headerMini);
   spacer.style.height = headerMini ? '40px' : '80px';
+};
+
+/* ══ NAV COLLAPSE ════════════════════════════════ */
+document.getElementById('nav-collapse-toggle').onclick = ()=>{
+  triggerHaptic();
+  navCollapsed = !navCollapsed;
+  const nav = document.getElementById('main-nav');
+  nav.classList.toggle('collapsed', navCollapsed);
 };
 
 /* ══ THEME ══════════════════════════════════════ */
@@ -1168,31 +1226,33 @@ function closeMobileMenu(){
 }
 
 /* ══ CATEGORY TOGGLE (MOBILE) ═══════════════════ */
-let categorySelectOpen = false;
-function toggleCategorySelect(){
-  triggerHaptic();
-  categorySelectOpen = !categorySelectOpen;
-  const select = document.getElementById('f-cat');
-  if(categorySelectOpen){
-    select.style.display = 'block';
-    select.focus();
-  } else {
-    select.style.display = 'none';
-  }
-}
-document.addEventListener('click', (e)=>{
-  if(!e.target.closest('#f-cat') && !e.target.closest('#f-cat-toggle')){
-    categorySelectOpen = false;
-    document.getElementById('f-cat').style.display = 'none';
-  }
-});
+let categoryDropdownOpen = false;
 
-/* Setup on load */
-window.addEventListener('load', ()=>{
-  const isMobile = window.innerWidth < 768;
-  if(isMobile){
-    document.getElementById('f-cat').style.display = 'none';
-    document.getElementById('f-cat-toggle').style.display = 'flex!important';
+function toggleCategoryDropdown(){
+  triggerHaptic();
+  categoryDropdownOpen = !categoryDropdownOpen;
+  const dropdown = document.getElementById('cat-dropdown');
+  const btn = event.target.closest('.cat-toggle-btn');
+  dropdown.classList.toggle('open', categoryDropdownOpen);
+  btn.classList.toggle('open', categoryDropdownOpen);
+}
+
+function setCategoryOption(value, label){
+  triggerHaptic();
+  document.getElementById('f-cat').value = value;
+  document.getElementById('f-cat-label').textContent = label;
+  document.getElementById('cat-dropdown').classList.remove('open');
+  document.querySelector('.cat-toggle-btn').classList.remove('open');
+  categoryDropdownOpen = false;
+  curPg = 1;
+  renderBrowse();
+}
+
+document.addEventListener('click', (e)=>{
+  if(!e.target.closest('.cat-toggle-wrapper')){
+    document.getElementById('cat-dropdown').classList.remove('open');
+    document.querySelector('.cat-toggle-btn').classList.remove('open');
+    categoryDropdownOpen = false;
   }
 });
 
@@ -1332,9 +1392,16 @@ document.getElementById('st-rvw').onclick = ()=>filterByStat('rvw');
 /* ══ INIT FILTERS ═══════════════════════════════ */
 function initFilters(){
   const cats = [...new Set(data.map(d => d.category).filter(Boolean))].sort();
+  
+  // Desktop select
   const catSel = document.getElementById('f-cat');
   catSel.innerHTML = '<option value="">All Categories</option>' +
     cats.map(c => `<option value="${c}">${c}</option>`).join('');
+  
+  // Mobile dropdown
+  const catDropdown = document.getElementById('cat-dropdown');
+  catDropdown.innerHTML = '<button class="cat-option selected" onclick="setCategoryOption(\'\', \'📂 All Categories\')">All Categories</button>' +
+    cats.map(c => `<button class="cat-option" onclick="setCategoryOption('${c}', '📂 ${c}')">${c}</button>`).join('');
   
   const fcCatSel = document.getElementById('fc-cat-filter');
   fcCatSel.innerHTML = '<option value="">All Categories</option>' +
@@ -1343,9 +1410,6 @@ function initFilters(){
   const quizCatSel = document.getElementById('quiz-cat-filter');
   quizCatSel.innerHTML = '<option value="">All Categories</option>' +
     cats.map(c => `<option value="${c}">${c}</option>`).join('');
-
-  // Update label
-  updateCategoryLabel();
 }
 
 function updateCategoryLabel(){
@@ -1380,6 +1444,10 @@ function createCard(d, idx){
         <button class="btn btn-outline" onclick="markCardReview('${esc(d.sn)}','wrong',${idx})" style="font-size:.7rem;padding:.35rem .55rem;min-height:auto;color:var(--wrong);border-color:var(--wrong)" title="Mark wrong">❌</button>
         <button class="btn btn-outline" onclick="markCardReview('${esc(d.sn)}','review',${idx})" style="font-size:.7rem;padding:.35rem .55rem;min-height:auto;color:var(--review);border-color:var(--review)" title="Mark for review">🔖</button>
       </div>
+      <div class="card-search-row">
+        <button class="card-search-btn" onclick="searchCardGoogle('${esc(d.question)}')">🔍 Google</button>
+        <button class="card-search-btn" onclick="searchCardChatGPT('${esc(d.question)}')">💬 ChatGPT</button>
+      </div>
     </article>`;
 }
 
@@ -1392,15 +1460,13 @@ function markCardReview(sn, status, localIdx){
   renderBrowse(false);
 }
 
-/* ══ SEARCH BUTTONS ═════════════════════════════ */
-function searchGoogle(){
-  const q = document.getElementById('search-input').value.trim();
-  if(!q) return showToast('Enter search term');
-  window.open(`https://www.google.com/search?q=${encodeURIComponent(q)}`, '_blank');
+/* ══ SEARCH FUNCTIONS ═══════════════════════════ */
+function searchCardGoogle(q){
+  const text = q.replace(/'/g, '');
+  window.open(`https://www.google.com/search?q=${encodeURIComponent(text)}`, '_blank');
 }
-function searchChatGPT(){
-  const q = document.getElementById('search-input').value.trim();
-  if(!q) return showToast('Enter search term');
+function searchCardChatGPT(q){
+  const text = q.replace(/'/g, '');
   window.open(`https://chat.openai.com`, '_blank');
 }
 
@@ -1425,6 +1491,10 @@ function openModal(idx){
       <button onclick="markCardReview('${esc(d.sn)}','correct',${idx});closeWordModal()" style="flex:1;padding:.55rem .5rem;border-radius:var(--radius-md);background:var(--correct-soft);color:var(--correct);border:1.5px solid var(--correct);font-weight:700;font-size:.78rem;cursor:pointer;font-family:inherit">✅ Correct</button>
       <button onclick="markCardReview('${esc(d.sn)}','wrong',${idx});closeWordModal()" style="flex:1;padding:.55rem .5rem;border-radius:var(--radius-md);background:var(--wrong-soft);color:var(--wrong);border:1.5px solid var(--wrong);font-weight:700;font-size:.78rem;cursor:pointer;font-family:inherit">❌ Wrong</button>
       <button onclick="markCardReview('${esc(d.sn)}','review',${idx});closeWordModal()" style="flex:1;padding:.55rem .5rem;border-radius:var(--radius-md);background:var(--review-soft);color:var(--review);border:1.5px solid var(--review);font-weight:700;font-size:.78rem;cursor:pointer;font-family:inherit">🔖 Review</button>
+    </div>
+    <div class="modal-search-row">
+      <button class="modal-search-btn" onclick="searchCardGoogle('${esc(d.question)}')"><span>🔍</span>Google</button>
+      <button class="modal-search-btn" onclick="searchCardChatGPT('${esc(d.question)}')"><span>💬</span>ChatGPT</button>
     </div>`;
 
   document.getElementById('word-modal').classList.add('open');
@@ -1629,7 +1699,6 @@ function speakCurrent(lang){
   if(!d) return;
   window.speechSynthesis.cancel();
   
-  // Remove emojis and symbols from text for cleaner pronunciation
   let text = sanitizeText(d.question);
   
   if(lang === 'bn'){
@@ -1698,7 +1767,6 @@ function initQuiz(){
   const cat = document.getElementById('quiz-cat-filter').value;
   quizList = cat ? data.filter(d => d.category === cat) : [...data];
   
-  // Shuffle
   for(let i=quizList.length-1;i>0;i--){
     const j=Math.floor(Math.random()*(i+1));
     [quizList[i],quizList[j]]=[quizList[j],quizList[i]];
@@ -1720,7 +1788,6 @@ function renderQuiz(){
   }
 
   if(quizIdx >= quizList.length){
-    // Show results
     renderQuizResults();
     return;
   }
@@ -1731,7 +1798,6 @@ function renderQuiz(){
   const pct = ((quizIdx + 1) / quizList.length * 100).toFixed(1);
   document.getElementById('quiz-progress-fill').style.width = pct + '%';
 
-  // Generate MCQ options
   const options = [d.answer];
   const wrongAnswers = quizList
     .filter(q => q.sn !== d.sn)
@@ -1825,7 +1891,7 @@ function renderQuizResults(){
     </div>`;
 }
 
-/* ══ DASHBOARD ═════════════════════════���════════ */
+/* ══ DASHBOARD ══════════════════════════════════ */
 function renderDashboard(){
   const total = data.length;
   const impCnt = data.filter(d => d.importance >= 4).length;
@@ -1889,7 +1955,7 @@ window.addEventListener('online',  ()=>showToast('🌐 Back online!', 2000));
 /* ══ SERVICE WORKER ═════════════════════════════ */
 if('serviceWorker' in navigator){
   const swCode = `
-const CACHE='qa-sw-v3';
+const CACHE='qa-sw-v4';
 self.addEventListener('install',e=>{self.skipWaiting();});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==CACHE).map(x=>caches.delete(x)))));self.clients.claim();});
 self.addEventListener('fetch',e=>{
@@ -1909,7 +1975,6 @@ self.addEventListener('fetch',e=>{
 /* ══ INIT ═══════════════════════════════════════ */
 loadReviews();
 window.addEventListener('load', loadData);
-document.getElementById('f-cat').addEventListener('change', updateCategoryLabel);
 document.addEventListener('visibilitychange', ()=>{
   if(document.hidden && window.speechSynthesis) window.speechSynthesis.cancel();
 });

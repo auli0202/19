@@ -33,6 +33,8 @@
   --review:#a84f00;
   --review-soft:rgba(168,79,0,.09);
   --ex-bg:#edf1f9;
+  --answer-bg:#f0f6ff;
+  --answer-border:#3b82f6;
   --shadow:0 2px 12px rgba(37,99,200,.07);
   --shadow-md:0 4px 20px rgba(37,99,200,.11);
   --shadow-lg:0 10px 38px rgba(37,99,200,.14);
@@ -53,8 +55,8 @@
 html.dark{
   --bg-main:#0e1520;
   --card-bg:#172030;
-  --text-main:#e8eef8;
-  --text-sub:#8aaac8;
+  --text-main:#c8d8ee;
+  --text-sub:#6a8aa8;
   --accent:#6aaaf8;
   --accent-soft:#1b3050;
   --accent-mid:#2e4f80;
@@ -67,6 +69,8 @@ html.dark{
   --review:#cf832a;
   --review-soft:rgba(207,131,42,.13);
   --ex-bg:#15202e;
+  --answer-bg:#162235;
+  --answer-border:#3b6fba;
   --shadow:0 2px 14px rgba(0,0,0,.35);
   --shadow-md:0 4px 22px rgba(0,0,0,.45);
   --shadow-lg:0 10px 42px rgba(0,0,0,.6);
@@ -93,7 +97,7 @@ body{
   backdrop-filter:blur(28px) saturate(2.2);
   -webkit-backdrop-filter:blur(28px) saturate(2.2);
   position:fixed;top:0;left:0;right:0;z-index:900;
-  padding:.75rem 1rem .65rem;
+  padding:.65rem 1rem .55rem;
   border-bottom:1px solid rgba(255,255,255,0.55);
   box-shadow:0 1px 0 rgba(255,255,255,0.9) inset,0 4px 24px rgba(37,99,200,.10);
 }
@@ -103,16 +107,16 @@ html.dark .header{
   box-shadow:0 1px 0 rgba(255,255,255,0.05) inset,0 4px 24px rgba(0,0,0,.35);
 }
 #header-spacer{height:var(--hdr-h,80px);flex-shrink:0;}
-.header-inner{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:.55rem;}
+.header-inner{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:.45rem;}
 .header-top{display:flex;justify-content:space-between;align-items:center;gap:.5rem;}
-.logo{font-weight:800;font-size:1.55rem;color:var(--accent);cursor:pointer;letter-spacing:-.04em;user-select:none;flex-shrink:0;}
+.logo{font-weight:800;font-size:1.45rem;color:var(--accent);cursor:pointer;letter-spacing:-.04em;user-select:none;flex-shrink:0;}
 .logo span{color:var(--text-main);}
-.header-actions{display:flex;align-items:center;gap:.35rem;flex-shrink:0;}
+.header-actions{display:flex;align-items:center;gap:.3rem;flex-shrink:0;}
 .action-btn{
-  width:2.1rem;height:2.1rem;border-radius:50%;
+  width:2rem;height:2rem;border-radius:50%;
   border:1.5px solid var(--border);background:var(--card-bg);
   color:var(--text-main);display:flex;align-items:center;justify-content:center;
-  cursor:pointer;font-size:.88rem;
+  cursor:pointer;font-size:.82rem;
   transition:background var(--transition),border-color var(--transition),transform .18s cubic-bezier(.34,1.56,.64,1);
   flex-shrink:0;
 }
@@ -120,41 +124,41 @@ html.dark .header{
 .action-btn:active{transform:scale(.88);}
 
 /* Stats row */
-.stats-row{display:flex;gap:.45rem;}
+.stats-row{display:flex;gap:.35rem;}
 .stat-chip{
-  flex:1;height:3.4rem;border-radius:var(--radius-md);
+  flex:1;height:3rem;border-radius:var(--radius-md);
   border:1.5px solid var(--border);background:var(--card-bg);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   cursor:pointer;min-width:0;user-select:none;
   transition:background var(--transition),border-color var(--transition),transform .22s cubic-bezier(.34,1.56,.64,1);
 }
 .stat-chip:active{transform:scale(.95);}
-.stat-chip .chip-label{font-size:.52rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;opacity:.65;}
-.stat-chip .chip-val{font-size:1.05rem;font-weight:800;margin-top:1px;}
+.stat-chip .chip-label{font-size:.48rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;opacity:.65;}
+.stat-chip .chip-val{font-size:.95rem;font-weight:800;margin-top:1px;}
 .stat-chip.total{border-color:var(--accent);color:var(--accent);}
 .stat-chip.starred{border-color:#f59e0b;color:#f59e0b;}
 .stat-chip.active-chip{background:var(--accent);color:#fff!important;}
 .stat-chip.active-chip .chip-label,.stat-chip.active-chip .chip-val{color:#fff!important;opacity:1;}
 
 /* Progress bar */
-.progress-track{width:100%;height:4px;background:var(--border);border-radius:99px;overflow:hidden;}
+.progress-track{width:100%;height:3px;background:var(--border);border-radius:99px;overflow:hidden;}
 #overall-progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),#60a5fa);transition:width .75s cubic-bezier(.25,.46,.45,.94);border-radius:99px;}
 
 /* ═══════════ LAYOUT ═══════════ */
-.main-container{max-width:1200px;margin:0 auto;padding:1rem;}
+.main-container{max-width:1200px;margin:0 auto;padding:.85rem;}
 
 /* ═══════════ CONTROLS ═══════════ */
 .controls{
-  background:var(--card-bg);padding:.85rem;border-radius:var(--radius-lg);
-  border:1px solid var(--border);display:flex;flex-wrap:wrap;gap:.5rem;
-  margin-bottom:1.2rem;box-shadow:var(--shadow);
+  background:var(--card-bg);padding:.75rem;border-radius:var(--radius-lg);
+  border:1px solid var(--border);display:flex;flex-wrap:wrap;gap:.45rem;
+  margin-bottom:1rem;box-shadow:var(--shadow);
 }
 input,select,.btn{
-  padding:.58rem .85rem;border-radius:var(--radius-sm);
+  padding:.52rem .8rem;border-radius:var(--radius-sm);
   border:1.5px solid var(--border);background:var(--card-bg);
-  color:var(--text-main);font-size:.91rem;outline:none;font-family:inherit;
+  color:var(--text-main);font-size:.88rem;outline:none;font-family:inherit;
   transition:border-color var(--transition),box-shadow var(--transition);
-  min-height:2.65rem;
+  min-height:2.5rem;
 }
 input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.12);}
 input::placeholder{color:var(--text-sub);opacity:.8;}
@@ -163,7 +167,7 @@ select{cursor:pointer;appearance:none;
   background-repeat:no-repeat;background-position:right .6rem center;background-size:1.1rem;
   padding-right:2rem!important;font-weight:600;
 }
-#search-input{flex:1;min-width:180px;}
+#search-input{flex:1;min-width:160px;}
 .btn{cursor:pointer;font-weight:700;letter-spacing:.01em;
   transition:background var(--transition),color var(--transition),transform .18s cubic-bezier(.34,1.56,.64,1);
 }
@@ -172,19 +176,16 @@ select{cursor:pointer;appearance:none;
 .btn-primary:hover{opacity:.9;}
 .btn-outline{background:var(--card-bg);color:var(--text-main);border-color:var(--border);}
 .btn-outline:hover{border-color:var(--accent);color:var(--accent);}
-.btn-google{background:linear-gradient(135deg,#4285f4,#34a853);color:#fff;border:none;display:flex;align-items:center;gap:.4rem;font-size:.8rem;padding:.45rem .8rem;border-radius:var(--radius-sm);cursor:pointer;font-family:inherit;font-weight:700;transition:opacity .18s,transform .18s cubic-bezier(.34,1.56,.64,1);}
-.btn-google:hover{opacity:.88;}
-.btn-google:active{transform:scale(.94);}
 
 /* ═══════════ WORD GRID ═══════════ */
-.word-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:.85rem;}
-@media(max-width:767px){.word-grid{grid-template-columns:1fr;}}
-@media(min-width:480px) and (max-width:767px){.word-grid{grid-template-columns:repeat(2,1fr);}}
+.word-grid{display:grid;grid-template-columns:1fr;gap:.75rem;}
+@media(min-width:480px){.word-grid{grid-template-columns:repeat(2,1fr);}}
+@media(min-width:768px){.word-grid{grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:.85rem;}}
 
 /* ═══════════ CARD ═══════════ */
 .wcard{
   background:var(--card-bg);border-radius:var(--radius-lg);
-  border:1.5px solid var(--border);padding:1.15rem;
+  border:1.5px solid var(--border);padding:1rem;
   box-shadow:var(--shadow);cursor:pointer;
   transition:transform .22s cubic-bezier(.34,1.56,.64,1),box-shadow .22s,border-color .22s;
   position:relative;overflow:hidden;
@@ -195,48 +196,64 @@ select{cursor:pointer;appearance:none;
 .wcard:nth-child(1){animation-delay:.03s}.wcard:nth-child(2){animation-delay:.06s}.wcard:nth-child(3){animation-delay:.09s}.wcard:nth-child(4){animation-delay:.12s}.wcard:nth-child(5){animation-delay:.15s}.wcard:nth-child(n+6){animation-delay:.17s}
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
-.card-top{display:flex;align-items:flex-start;gap:.5rem;margin-bottom:.5rem;}
+.card-sn-row{display:flex;align-items:center;gap:.4rem;margin-bottom:.4rem;}
 .c-sn{
-  font-size:.65rem;font-weight:800;color:var(--accent);
-  background:var(--accent-soft);padding:2px 8px;border-radius:99px;
-  flex-shrink:0;white-space:nowrap;margin-top:3px;
+  font-size:.6rem;font-weight:800;color:var(--accent);
+  background:var(--accent-soft);padding:2px 7px;border-radius:99px;
+  flex-shrink:0;white-space:nowrap;
 }
-.c-question{font-size:1.05rem;font-weight:700;line-height:1.45;flex:1;}
-.c-answer{font-size:.92rem;color:var(--text-sub);line-height:1.55;margin-bottom:.65rem;font-weight:500;}
-.card-meta{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin-bottom:.6rem;}
+.c-question{font-size:1rem;font-weight:700;line-height:1.45;margin-bottom:.6rem;}
+.c-answer-wrap{
+  background:var(--answer-bg);
+  border-left:3px solid var(--answer-border);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  padding:.55rem .7rem;
+  margin-bottom:.6rem;
+}
+.c-answer{font-size:.88rem;color:var(--text-sub);line-height:1.55;font-weight:500;}
+.card-meta{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin-bottom:.5rem;}
 .c-tag{
-  font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;
-  background:var(--accent-soft);color:var(--accent);padding:2px 8px;border-radius:99px;
+  font-size:.55rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;
+  background:var(--accent-soft);color:var(--accent);padding:2px 7px;border-radius:99px;
 }
-.c-imp{font-size:.78rem;}
+.c-imp{font-size:.75rem;}
 .c-proverb-en{
-  font-size:.83rem;font-style:italic;color:var(--text-sub);
-  border-left:2.5px solid var(--accent-mid);padding-left:.6rem;
-  line-height:1.55;margin-bottom:.45rem;font-weight:500;
+  font-size:.82rem;font-style:italic;color:var(--text-sub);
+  border-left:2.5px solid var(--accent-mid);padding-left:.55rem;
+  line-height:1.55;margin-bottom:.4rem;font-weight:500;
 }
 .c-proverb-bn{
-  font-family:'Noto Serif Bengali',serif;font-size:.95rem;
+  font-family:'Noto Serif Bengali',serif;font-size:.9rem;
   color:var(--text-sub);line-height:1.65;font-weight:600;
 }
-.card-actions{display:flex;gap:.4rem;margin-top:.75rem;flex-wrap:wrap;align-items:center;}
-.card-actions .btn{font-size:.72rem;padding:.38rem .7rem;min-height:auto;}
+.card-actions{display:flex;gap:.35rem;margin-top:.7rem;flex-wrap:wrap;align-items:center;}
+.card-actions .btn{font-size:.7rem;padding:.35rem .65rem;min-height:auto;}
+
+/* Review badge */
+.review-badge{
+  position:absolute;top:.55rem;right:.55rem;
+  background:var(--review-soft);color:var(--review);
+  border:1px solid var(--review);border-radius:99px;
+  font-size:.55rem;font-weight:800;padding:2px 7px;letter-spacing:.04em;
+}
+.wcard.reviewed .review-badge{display:block;}
 
 /* ═══════════ IMPORTANCE STARS ═══════════ */
-.stars{color:#f59e0b;font-size:.85rem;letter-spacing:1px;}
+.stars{color:#f59e0b;font-size:.82rem;letter-spacing:1px;}
 
 /* ═══════════ MODAL ═══════════ */
 .modal-overlay{
   position:fixed;top:0;left:0;right:0;bottom:0;
   background:rgba(0,0,0,.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
   z-index:1050;display:flex;align-items:flex-end;justify-content:center;
-  padding:0;padding-bottom:var(--nav-h);overflow:hidden;
+  padding:0;overflow:hidden;
   opacity:0;pointer-events:none;
   transition:opacity .35s cubic-bezier(.25,.46,.45,.94);
 }
 .modal-overlay.open{opacity:1;pointer-events:auto;}
 .modal-box{
   background:var(--card-bg);border-radius:var(--radius-xl) var(--radius-xl) 0 0;
-  padding:2rem 1.5rem 1.5rem;width:100%;max-height:85vh;overflow-y:auto;
+  padding:2rem 1.5rem 1.5rem;width:100%;max-height:88vh;overflow-y:auto;
   box-shadow:0 -8px 40px rgba(0,0,0,.3);
   transform:translateY(100%);visibility:hidden;
   transition:transform .42s cubic-bezier(.32,1.1,.64,1),visibility 0s linear .42s;position:relative;
@@ -251,21 +268,28 @@ select{cursor:pointer;appearance:none;
 }
 .modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--text-sub);width:2rem;height:2rem;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:background .15s;}
 .modal-close:hover{background:var(--ex-bg);}
-.modal-sn{font-size:.68rem;font-weight:800;color:var(--accent);background:var(--accent-soft);padding:3px 10px;border-radius:99px;display:inline-block;margin-bottom:.6rem;}
-.modal-question{font-size:1.45rem;font-weight:800;line-height:1.35;margin-bottom:.5rem;}
-.modal-answer{font-size:1.05rem;line-height:1.65;color:var(--text-sub);font-weight:500;margin-bottom:1rem;padding:1rem;background:var(--ex-bg);border-radius:var(--radius-md);}
-.modal-lbl{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--text-sub);margin-bottom:.4rem;}
-.modal-block{margin-bottom:1rem;}
-.modal-proverb-en{font-style:italic;color:var(--text-sub);line-height:1.6;border-left:3px solid var(--accent);padding-left:.75rem;font-weight:600;font-size:.95rem;}
-.modal-proverb-bn{font-family:'Noto Serif Bengali',serif;font-size:1.1rem;font-weight:600;line-height:1.65;}
-.modal-meta{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin-bottom:1rem;}
+.modal-sn{font-size:.65rem;font-weight:800;color:var(--accent);background:var(--accent-soft);padding:3px 10px;border-radius:99px;display:inline-block;margin-bottom:.5rem;}
+.modal-question{font-size:1.35rem;font-weight:800;line-height:1.35;margin-bottom:.5rem;}
+.modal-answer{
+  font-size:1rem;line-height:1.65;color:var(--text-sub);font-weight:500;
+  padding:.9rem 1rem;
+  background:var(--answer-bg);
+  border-left:3px solid var(--answer-border);
+  border-radius:0 var(--radius-md) var(--radius-md) 0;
+  margin-bottom:1rem;
+}
+.modal-lbl{font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--text-sub);margin-bottom:.35rem;}
+.modal-block{margin-bottom:.9rem;}
+.modal-proverb-en{font-style:italic;color:var(--text-sub);line-height:1.6;border-left:3px solid var(--accent);padding-left:.7rem;font-weight:600;font-size:.92rem;}
+.modal-proverb-bn{font-family:'Noto Serif Bengali',serif;font-size:1.05rem;font-weight:600;line-height:1.65;}
+.modal-meta{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin-bottom:.9rem;}
 
 /* ═══════════ PAGINATION ═══════════ */
-#pag-box{display:flex;align-items:center;gap:.3rem;flex-wrap:wrap;justify-content:center;padding:1rem 0;}
+#pag-box{display:flex;align-items:center;gap:.3rem;flex-wrap:wrap;justify-content:center;padding:.85rem 0;}
 
 /* ═══════════ EMPTY / ERROR ═══════════ */
 .empty-state{
-  grid-column:1/-1;padding:3.5rem 1.5rem;text-align:center;
+  grid-column:1/-1;padding:3rem 1.5rem;text-align:center;
   background:var(--card-bg);border-radius:var(--radius-xl);border:1.5px solid var(--border);
 }
 .empty-state h3{font-size:1.3rem;margin-bottom:.5rem;}
@@ -274,7 +298,7 @@ select{cursor:pointer;appearance:none;
 /* ═══════════ SKELETON ═══════════ */
 .skeleton-card{
   background:var(--card-bg);border-radius:var(--radius-lg);
-  border:1.5px solid var(--border);height:180px;
+  border:1.5px solid var(--border);height:160px;
   position:relative;overflow:hidden;
 }
 .skeleton-card::after{
@@ -290,12 +314,13 @@ html.dark .skeleton-card::after{background:linear-gradient(90deg,transparent 30%
 #toast{
   position:fixed;bottom:calc(var(--nav-h) + .75rem);left:50%;
   transform:translateX(-50%) translateY(8px);
-  background:#1e293b;color:#fff;padding:10px 22px;border-radius:99px;
-  font-size:.82rem;opacity:0;
+  background:#1e293b;color:#fff;padding:9px 20px;border-radius:99px;
+  font-size:.8rem;opacity:0;
   transition:opacity .3s,transform .3s;
   pointer-events:none;z-index:9999;font-weight:600;white-space:nowrap;
   box-shadow:0 4px 20px rgba(0,0,0,.25);
 }
+html.dark #toast{background:#334155;}
 @media(min-width:768px){#toast{bottom:1.5rem;}}
 
 /* ═══════════ BOTTOM NAV (mobile) ═══════════ */
@@ -327,14 +352,14 @@ html.dark .bottom-nav{
 }
 .nav-item.active{color:var(--accent);}
 .nav-item.active::after{transform:scaleX(1);}
-.nav-icon{font-size:1.25rem;line-height:1;display:flex;align-items:center;justify-content:center;height:1.4rem;}
-.nav-label{font-size:.58rem;font-weight:700;margin-top:3px;letter-spacing:.02em;}
+.nav-icon{font-size:1.2rem;line-height:1;display:flex;align-items:center;justify-content:center;height:1.3rem;}
+.nav-label{font-size:.54rem;font-weight:700;margin-top:3px;letter-spacing:.02em;}
 
 /* Desktop nav */
 .desktop-nav{display:none;gap:.2rem;flex-wrap:wrap;align-items:center;}
 .d-nav-item{
   background:none;border:none;color:var(--text-sub);font-weight:700;
-  font-size:.8rem;cursor:pointer;padding:.36rem .72rem;border-radius:var(--radius-sm);
+  font-size:.78rem;cursor:pointer;padding:.34rem .68rem;border-radius:var(--radius-sm);
   transition:background var(--transition),color var(--transition);
   font-family:inherit;
 }
@@ -344,7 +369,7 @@ html.dark .bottom-nav{
   .bottom-nav{display:none!important;}
   body{padding-bottom:2.5rem;}
   #nav-toggle{display:none!important;}
-  .word-grid{grid-template-columns:repeat(auto-fill,minmax(320px,1fr));}
+  .word-grid{grid-template-columns:repeat(auto-fill,minmax(300px,1fr));}
 }
 
 /* ═══════════ SECTION ═══════════ */
@@ -354,56 +379,278 @@ section{animation:fadeUp .35s cubic-bezier(.25,.46,.45,.94) both;}
 /* ═══════════ RESPONSIVE ═══════════ */
 @media(max-width:767px){
   .desktop-nav{display:none;}
-  .controls{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;}
+  .controls{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;}
   #search-input{grid-column:span 2;}
-  .main-container{padding:.75rem;}
+  .main-container{padding:.65rem;}
 }
-
-/* ═══════════ DETAIL VIEW ═══════════ */
-.detail-card{
-  background:var(--card-bg);border-radius:var(--radius-xl);
-  border:2px solid var(--border);max-width:680px;margin:0 auto;
-  box-shadow:var(--shadow-lg);overflow:hidden;
+@media(max-width:380px){
+  .controls{grid-template-columns:1fr;}
+  #search-input{grid-column:span 1;}
+  .stats-row{gap:.25rem;}
+  .stat-chip .chip-val{font-size:.85rem;}
 }
-.detail-header{
-  background:linear-gradient(135deg,var(--accent-soft),var(--bg-main));
-  padding:2rem 1.5rem 1.5rem;border-bottom:2px solid var(--border);
-}
-.detail-body{padding:1.5rem;}
-.detail-question{font-size:clamp(1.4rem,4.5vw,2rem);font-weight:800;line-height:1.35;margin-bottom:.6rem;}
-.detail-sn{font-size:.68rem;font-weight:800;color:var(--accent);background:var(--accent-soft);padding:3px 10px;border-radius:99px;display:inline-flex;align-items:center;gap:.3rem;margin-bottom:.8rem;}
-.detail-answer{
-  font-size:1.05rem;line-height:1.7;color:var(--text-sub);font-weight:500;
-  padding:1.1rem;background:var(--ex-bg);border-radius:var(--radius-md);margin-bottom:1.2rem;
-}
-.detail-proverb-en{
-  font-style:italic;line-height:1.65;border-left:3px solid var(--accent);
-  padding-left:.75rem;font-size:.95rem;color:var(--text-sub);font-weight:600;margin-bottom:.75rem;
-}
-.detail-proverb-bn{
-  font-family:'Noto Serif Bengali',serif;font-size:1.15rem;font-weight:600;
-  line-height:1.7;color:var(--text-main);
-}
-.detail-nav{display:flex;gap:.5rem;justify-content:space-between;margin-top:1.2rem;}
-.detail-nav .btn{flex:1;}
 
 /* ═══════════ MOBILE MENU ═══════════ */
 #mobile-menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1050;opacity:0;pointer-events:none;transition:opacity .32s;backdrop-filter:blur(4px);}
 #mobile-menu-overlay.open{opacity:1;pointer-events:auto;}
 #mobile-menu-panel{position:fixed;top:0;right:0;bottom:0;width:min(280px,80vw);background:var(--card-bg);z-index:1060;transform:translateX(100%);transition:transform .38s;display:flex;flex-direction:column;border-left:1px solid var(--border);box-shadow:-8px 0 40px rgba(0,0,0,.22);}
 #mobile-menu-panel.open{transform:translateX(0);}
-.mobile-menu-header{padding:1.2rem 1rem 1rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
-.mobile-menu-title{font-size:1rem;font-weight:800;color:var(--text-main);}
+.mobile-menu-header{padding:1.1rem 1rem .9rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.mobile-menu-title{font-size:.95rem;font-weight:800;color:var(--text-main);}
 .mobile-menu-close{width:2rem;height:2rem;border-radius:50%;border:1.5px solid var(--border);background:var(--bg-main);color:var(--text-main);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.9rem;}
 .mobile-menu-body{flex:1;overflow-y:auto;padding:.5rem;display:flex;flex-direction:column;gap:.2rem;}
-.mobile-menu-item{display:flex;align-items:center;gap:.75rem;padding:.85rem .9rem;border-radius:var(--radius-md);border:none;background:none;color:var(--text-main);font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;width:100%;text-align:left;transition:background var(--transition),color var(--transition);}
+.mobile-menu-item{display:flex;align-items:center;gap:.7rem;padding:.8rem .85rem;border-radius:var(--radius-md);border:none;background:none;color:var(--text-main);font-size:.95rem;font-weight:700;cursor:pointer;font-family:inherit;width:100%;text-align:left;transition:background var(--transition),color var(--transition);}
 .mobile-menu-item:hover,.mobile-menu-item.active{background:var(--accent-soft);color:var(--accent);}
-.mmi-icon{font-size:1.2rem;width:1.6rem;text-align:center;flex-shrink:0;}
-.mobile-menu-footer{padding:.75rem 1rem;border-top:1px solid var(--border);display:flex;gap:.5rem;}
-.mobile-menu-footer .action-btn{flex:1;border-radius:var(--radius-sm);width:auto;height:2.4rem;}
+.mmi-icon{font-size:1.15rem;width:1.5rem;text-align:center;flex-shrink:0;}
+.mobile-menu-footer{padding:.7rem 1rem;border-top:1px solid var(--border);display:flex;gap:.5rem;}
+.mobile-menu-footer .action-btn{flex:1;border-radius:var(--radius-sm);width:auto;height:2.3rem;}
+
+/* ═══════════ FLASHCARD VIEW ═══════════ */
+.flashcard-container{
+  max-width:600px;margin:0 auto;
+  user-select:none;
+}
+.fc-topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:.9rem;gap:.5rem;flex-wrap:wrap;
+}
+.fc-counter{font-size:.82rem;font-weight:700;color:var(--text-sub);}
+.fc-controls{display:flex;gap:.4rem;align-items:center;flex-wrap:wrap;}
+.fc-controls .btn{font-size:.72rem;padding:.32rem .65rem;min-height:auto;}
+
+/* Swipe wrapper */
+.fc-swipe-area{
+  position:relative;overflow:hidden;
+  border-radius:var(--radius-xl);
+  min-height:320px;
+  touch-action:pan-y;
+}
+.fc-card{
+  background:var(--card-bg);
+  border-radius:var(--radius-xl);
+  border:2px solid var(--border);
+  box-shadow:var(--shadow-lg);
+  padding:2rem 1.5rem 1.5rem;
+  min-height:320px;
+  display:flex;flex-direction:column;
+  position:relative;
+  cursor:pointer;
+  transition:transform .15s,box-shadow .15s;
+  will-change:transform;
+}
+.fc-card:active{box-shadow:var(--shadow-md);}
+.fc-sn{
+  font-size:.65rem;font-weight:800;color:var(--accent);
+  background:var(--accent-soft);padding:3px 10px;border-radius:99px;
+  display:inline-block;margin-bottom:.75rem;
+  align-self:flex-start;
+}
+.fc-question{
+  font-size:clamp(1.15rem,3.5vw,1.6rem);font-weight:800;line-height:1.38;
+  flex:1;display:flex;align-items:center;
+}
+.fc-answer-section{
+  margin-top:1.2rem;
+  padding:1rem;
+  background:var(--answer-bg);
+  border-left:4px solid var(--answer-border);
+  border-radius:0 var(--radius-md) var(--radius-md) 0;
+  display:none;
+}
+.fc-answer-section.visible{display:block;animation:fadeIn .3s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.fc-answer-lbl{font-size:.55rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--answer-border);margin-bottom:.4rem;}
+.fc-answer-text{font-size:1rem;line-height:1.65;color:var(--text-main);font-weight:500;}
+.fc-tap-hint{
+  text-align:center;font-size:.72rem;color:var(--text-sub);
+  opacity:.6;margin-top:auto;padding-top:.7rem;
+}
+.fc-flip-indicator{
+  position:absolute;bottom:1rem;right:1rem;
+  font-size:.7rem;font-weight:700;color:var(--accent);
+  background:var(--accent-soft);padding:3px 8px;border-radius:99px;
+  opacity:.75;
+}
+/* Swipe arrows for PC */
+.fc-nav-row{
+  display:flex;gap:.5rem;justify-content:center;margin-top:1rem;flex-wrap:wrap;
+}
+.fc-nav-row .btn{flex:1;max-width:180px;font-size:.85rem;}
+.fc-keyboard-hint{
+  text-align:center;font-size:.68rem;color:var(--text-sub);margin-top:.5rem;opacity:.65;
+}
+/* Progress */
+.fc-progress{
+  height:5px;background:var(--border);border-radius:99px;margin-bottom:.9rem;overflow:hidden;
+}
+.fc-progress-fill{
+  height:100%;background:linear-gradient(90deg,var(--accent),#60a5fa);
+  border-radius:99px;transition:width .4s ease;
+}
+/* Review buttons */
+.fc-review-row{
+  display:flex;gap:.5rem;margin-top:.85rem;justify-content:center;
+}
+.fc-review-btn{
+  flex:1;max-width:140px;padding:.6rem .8rem;border-radius:var(--radius-md);
+  border:2px solid;font-weight:700;font-size:.78rem;cursor:pointer;font-family:inherit;
+  transition:background .18s,transform .15s cubic-bezier(.34,1.56,.64,1);
+  display:flex;align-items:center;justify-content:center;gap:.35rem;
+}
+.fc-review-btn:active{transform:scale(.95);}
+.btn-correct{background:var(--correct-soft);color:var(--correct);border-color:var(--correct);}
+.btn-correct:hover{background:var(--correct);color:#fff;}
+.btn-wrong{background:var(--wrong-soft);color:var(--wrong);border-color:var(--wrong);}
+.btn-wrong:hover{background:var(--wrong);color:#fff;}
+.btn-review{background:var(--review-soft);color:var(--review);border-color:var(--review);}
+.btn-review:hover{background:var(--review);color:#fff;}
+
+/* Pronunciation toggle */
+.fc-tts-row{
+  display:flex;gap:.4rem;align-items:center;margin-top:.65rem;flex-wrap:wrap;justify-content:center;
+}
+.tts-btn{
+  padding:.38rem .75rem;border-radius:99px;border:1.5px solid var(--border);
+  background:var(--card-bg);color:var(--text-sub);font-size:.72rem;font-weight:700;
+  cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:.3rem;
+  transition:all .18s;
+}
+.tts-btn:hover{border-color:var(--accent);color:var(--accent);}
+.tts-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+.tts-toggle-wrap{
+  display:flex;align-items:center;gap:.4rem;font-size:.7rem;font-weight:700;color:var(--text-sub);
+  padding:.35rem .65rem;border-radius:99px;border:1.5px solid var(--border);background:var(--card-bg);
+  cursor:pointer;transition:border-color .18s;
+}
+.tts-toggle-wrap:hover{border-color:var(--accent);}
+.tts-toggle-switch{
+  width:28px;height:16px;background:var(--border);border-radius:99px;
+  position:relative;transition:background .2s;flex-shrink:0;
+}
+.tts-toggle-switch::after{
+  content:'';position:absolute;top:2px;left:2px;
+  width:12px;height:12px;background:#fff;border-radius:50%;
+  transition:transform .2s;
+}
+.tts-toggle-wrap.on .tts-toggle-switch{background:var(--accent);}
+.tts-toggle-wrap.on .tts-toggle-switch::after{transform:translateX(12px);}
+
+/* Page jump */
+.page-jump-wrap{
+  display:flex;align-items:center;gap:.4rem;margin-top:.5rem;justify-content:center;
+}
+.page-jump-input{
+  width:60px;text-align:center;padding:.3rem .4rem;font-size:.8rem;min-height:auto;
+}
+.page-jump-label{font-size:.72rem;color:var(--text-sub);font-weight:600;}
+
+/* ═══════════ REVIEW STATS ═══════════ */
+.review-summary{
+  background:var(--card-bg);border-radius:var(--radius-lg);
+  border:1px solid var(--border);padding:1rem 1.1rem;margin-bottom:1rem;
+  display:flex;gap:.6rem;flex-wrap:wrap;
+}
+.rv-chip{
+  flex:1;min-width:70px;padding:.5rem .6rem;border-radius:var(--radius-md);
+  text-align:center;border:1.5px solid;
+}
+.rv-chip-val{font-size:1.1rem;font-weight:800;display:block;}
+.rv-chip-lbl{font-size:.55rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;opacity:.75;display:block;margin-top:1px;}
+.rv-correct{background:var(--correct-soft);color:var(--correct);border-color:var(--correct);}
+.rv-wrong{background:var(--wrong-soft);color:var(--wrong);border-color:var(--wrong);}
+.rv-review{background:var(--review-soft);color:var(--review);border-color:var(--review);}
+.rv-unanswered{background:var(--ex-bg);color:var(--text-sub);border-color:var(--border);}
+
+/* ═══════════ DASHBOARD ═══════════ */
+.dashboard-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1rem;}
+@media(min-width:640px){.dashboard-grid{grid-template-columns:repeat(3,1fr);}}
+@media(min-width:900px){.dashboard-grid{grid-template-columns:repeat(4,1fr);}}
+.dash-card{
+  background:var(--card-bg);border-radius:var(--radius-lg);
+  border:1.5px solid var(--border);padding:1rem .9rem;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;gap:.25rem;box-shadow:var(--shadow);
+}
+.dash-icon{font-size:1.6rem;}
+.dash-val{font-size:1.4rem;font-weight:800;color:var(--accent);}
+.dash-lbl{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--text-sub);}
+.dash-section-title{font-size:1rem;font-weight:800;margin-bottom:.6rem;margin-top:.4rem;color:var(--text-main);}
+.dash-cat-list{
+  background:var(--card-bg);border-radius:var(--radius-lg);
+  border:1px solid var(--border);overflow:hidden;margin-bottom:1rem;box-shadow:var(--shadow);
+}
+.dash-cat-row{
+  display:flex;align-items:center;padding:.65rem 1rem;border-bottom:1px solid var(--border);gap:.75rem;
+}
+.dash-cat-row:last-child{border-bottom:none;}
+.dash-cat-name{flex:1;font-size:.88rem;font-weight:700;}
+.dash-cat-bar-wrap{width:100px;height:6px;background:var(--border);border-radius:99px;overflow:hidden;}
+.dash-cat-bar{height:100%;background:var(--accent);border-radius:99px;transition:width .6s ease;}
+.dash-cat-cnt{font-size:.78rem;font-weight:700;color:var(--text-sub);min-width:30px;text-align:right;}
+.dash-review-bar{
+  display:flex;height:10px;border-radius:99px;overflow:hidden;margin-bottom:1rem;gap:2px;
+}
+.dash-rv-seg{height:100%;transition:flex .5s ease;border-radius:99px;}
+
+/* ═══════════ PROVERB POPUP ═══════════ */
+.proverb-popup{
+  position:fixed;inset:0;z-index:2000;
+  display:flex;align-items:center;justify-content:center;
+  padding:1rem;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(12px);
+  opacity:0;pointer-events:none;transition:opacity .4s;
+}
+.proverb-popup.open{opacity:1;pointer-events:auto;}
+.proverb-popup-box{
+  background:var(--card-bg);border-radius:var(--radius-xl);
+  padding:2rem 1.75rem 1.5rem;max-width:460px;width:100%;
+  box-shadow:0 20px 60px rgba(0,0,0,.35);
+  position:relative;
+  transform:scale(.88) translateY(20px);
+  transition:transform .45s cubic-bezier(.34,1.56,.64,1),opacity .4s;
+  opacity:0;
+}
+.proverb-popup.open .proverb-popup-box{transform:scale(1) translateY(0);opacity:1;}
+.pp-icon{text-align:center;font-size:2rem;margin-bottom:.75rem;}
+.pp-title{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);text-align:center;margin-bottom:.9rem;}
+.pp-proverb-en{
+  font-size:1.1rem;font-weight:700;line-height:1.55;
+  font-style:italic;color:var(--text-main);margin-bottom:.75rem;
+  padding-left:1rem;border-left:3px solid var(--accent);
+}
+.pp-proverb-bn{
+  font-family:'Noto Serif Bengali',serif;font-size:1rem;
+  color:var(--text-sub);line-height:1.7;font-weight:600;margin-bottom:1.25rem;
+  padding-left:1rem;border-left:3px solid var(--accent-mid);
+}
+.pp-close{
+  width:100%;padding:.65rem;border-radius:var(--radius-md);
+  background:var(--accent);color:#fff;border:none;
+  font-weight:700;font-size:.9rem;cursor:pointer;font-family:inherit;
+  transition:opacity .18s;
+}
+.pp-close:hover{opacity:.88;}
+.pp-close-x{
+  position:absolute;top:.9rem;right:.9rem;background:none;border:none;
+  font-size:1.1rem;cursor:pointer;color:var(--text-sub);width:1.8rem;height:1.8rem;
+  display:flex;align-items:center;justify-content:center;border-radius:50%;transition:background .15s;
+}
+.pp-close-x:hover{background:var(--ex-bg);}
 </style>
 </head>
 <body>
+
+<!-- ═══════════ PROVERB POPUP ═══════════ -->
+<div class="proverb-popup" id="proverb-popup">
+  <div class="proverb-popup-box">
+    <button class="pp-close-x" onclick="closeProverbPopup()" aria-label="Close">✕</button>
+    <div class="pp-icon">💬</div>
+    <div class="pp-title">✨ Daily Wisdom</div>
+    <div class="pp-proverb-en" id="pp-en"></div>
+    <div class="pp-proverb-bn" id="pp-bn"></div>
+    <button class="pp-close" onclick="closeProverbPopup()">Continue Learning →</button>
+  </div>
+</div>
 
 <!-- ═══════════ HEADER ═══════════ -->
 <header class="header" id="main-header">
@@ -411,30 +658,35 @@ section{animation:fadeUp .35s cubic-bezier(.25,.46,.45,.94) both;}
     <div class="header-top">
       <div class="logo" onclick="showV('browse')" tabindex="0" role="button" aria-label="Go to Browse">Q&amp;<span>A</span></div>
       <nav class="desktop-nav" aria-label="Desktop navigation">
-        <button class="d-nav-item active" onclick="showV('browse')">📚 Browse</button>
-        <button class="d-nav-item" onclick="showV('detail')">🔍 Detail</button>
+        <button class="d-nav-item active" data-view="browse" onclick="showV('browse')">📚 Browse</button>
+        <button class="d-nav-item" data-view="flashcard" onclick="showV('flashcard')">🃏 Flashcard</button>
+        <button class="d-nav-item" data-view="dashboard" onclick="showV('dashboard')">📊 Dashboard</button>
       </nav>
       <div class="header-actions">
         <button class="action-btn" id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">🌙</button>
-        <button class="action-btn" id="f-inc" title="Increase font size" aria-label="Increase font">A+</button>
-        <button class="action-btn" id="f-dec" title="Decrease font size" aria-label="Decrease font">A-</button>
+        <button class="action-btn" id="f-inc" title="Increase font size" aria-label="Increase font" style="font-size:.65rem;font-weight:800">A+</button>
+        <button class="action-btn" id="f-dec" title="Decrease font size" aria-label="Decrease font" style="font-size:.65rem;font-weight:800">A-</button>
         <button class="action-btn" id="nav-toggle" aria-label="Menu" aria-expanded="false">☰</button>
       </div>
     </div>
 
     <!-- Stats chips -->
     <div class="stats-row">
-      <div class="stat-chip total" id="st-all" onclick="filterByStat('')" tabindex="0" role="button" aria-label="Show all">
+      <div class="stat-chip total" id="st-all" tabindex="0" role="button" aria-label="Show all">
         <span class="chip-label">Total</span>
         <span class="chip-val" id="c-all">–</span>
       </div>
-      <div class="stat-chip" style="border-color:var(--correct);color:var(--correct)" id="st-imp" onclick="filterByStat('imp')" tabindex="0" role="button" aria-label="Show important">
+      <div class="stat-chip" style="border-color:var(--correct);color:var(--correct)" id="st-imp" tabindex="0" role="button" aria-label="Show important">
         <span class="chip-label">Important</span>
         <span class="chip-val" id="c-imp">–</span>
       </div>
-      <div class="stat-chip starred" id="st-star" onclick="filterByStat('star')" tabindex="0" role="button" aria-label="Show starred">
+      <div class="stat-chip starred" id="st-star" tabindex="0" role="button" aria-label="Show starred">
         <span class="chip-label">★ Top</span>
         <span class="chip-val" id="c-star">–</span>
+      </div>
+      <div class="stat-chip" style="border-color:var(--correct);color:var(--correct)" id="st-rvw" tabindex="0" role="button" aria-label="Show reviewed">
+        <span class="chip-label">Reviewed</span>
+        <span class="chip-val" id="c-rvw">–</span>
       </div>
     </div>
 
@@ -455,7 +707,8 @@ section{animation:fadeUp .35s cubic-bezier(.25,.46,.45,.94) both;}
   </div>
   <div class="mobile-menu-body">
     <button class="mobile-menu-item active" data-view="browse" onclick="showV('browse');closeMobileMenu()"><span class="mmi-icon">📚</span>Browse</button>
-    <button class="mobile-menu-item" data-view="detail" onclick="showV('detail');closeMobileMenu()"><span class="mmi-icon">🔍</span>Detail View</button>
+    <button class="mobile-menu-item" data-view="flashcard" onclick="showV('flashcard');closeMobileMenu()"><span class="mmi-icon">🃏</span>Flashcard</button>
+    <button class="mobile-menu-item" data-view="dashboard" onclick="showV('dashboard');closeMobileMenu()"><span class="mmi-icon">📊</span>Dashboard</button>
   </div>
   <div class="mobile-menu-footer">
     <button class="action-btn" id="mm-theme-toggle" title="Toggle dark mode">🌙</button>
@@ -499,21 +752,134 @@ section{animation:fadeUp .35s cubic-bezier(.25,.46,.45,.94) both;}
         </select>
       </div>
       <div id="grid-browse" class="word-grid" role="list"></div>
-      <div id="pag-box" role="navigation" aria-label="Pagination"></div>
-    </section>
-
-    <!-- ── DETAIL VIEW ── -->
-    <section id="v-detail" class="hidden">
-      <div class="detail-card" id="detail-card-el">
-        <div style="padding:3rem;text-align:center;color:var(--text-sub)">
-          <div style="font-size:2.5rem;margin-bottom:1rem">🔍</div>
-          <p style="font-weight:600">Click any card to see details here, or use the Browse tab.</p>
+      <div id="pag-box" role="navigation" aria-label="Pagination">
+        <div class="page-jump-wrap" id="page-jump-wrap" style="display:none">
+          <span class="page-jump-label">Go to page:</span>
+          <input type="number" class="page-jump-input" id="page-jump-input" min="1" placeholder="1">
+          <button class="btn btn-primary" style="font-size:.75rem;padding:.32rem .6rem;min-height:auto" onclick="doPageJump()">Go</button>
         </div>
       </div>
-      <div style="display:flex;justify-content:center;gap:.5rem;margin-top:1rem;flex-wrap:wrap;">
-        <button class="btn btn-outline" onclick="showV('browse')">← Back to Browse</button>
-        <button class="btn btn-outline" id="detail-prev-btn" onclick="detailNav(-1)" style="display:none">◀ Previous</button>
-        <button class="btn btn-outline" id="detail-next-btn" onclick="detailNav(1)" style="display:none">Next ▶</button>
+    </section>
+
+    <!-- ── FLASHCARD ── -->
+    <section id="v-flashcard" class="hidden">
+      <div class="flashcard-container">
+        <!-- Review summary -->
+        <div class="review-summary" id="fc-review-summary" style="display:none">
+          <div class="rv-chip rv-correct"><span class="rv-chip-val" id="rv-correct">0</span><span class="rv-chip-lbl">✅ Correct</span></div>
+          <div class="rv-chip rv-wrong"><span class="rv-chip-val" id="rv-wrong">0</span><span class="rv-chip-lbl">❌ Wrong</span></div>
+          <div class="rv-chip rv-review"><span class="rv-chip-val" id="rv-review">0</span><span class="rv-chip-lbl">🔖 Review</span></div>
+          <div class="rv-chip rv-unanswered"><span class="rv-chip-val" id="rv-unanswered">0</span><span class="rv-chip-lbl">⬜ Left</span></div>
+        </div>
+
+        <div class="fc-topbar">
+          <span class="fc-counter" id="fc-counter">0 / 0</span>
+          <div class="fc-controls">
+            <select id="fc-cat-filter" style="font-size:.75rem;padding:.3rem .6rem;min-height:auto;padding-right:1.8rem" onchange="initFlashcards()">
+              <option value="">All Categories</option>
+            </select>
+            <button class="btn btn-outline" onclick="shuffleFC()" style="font-size:.72rem;padding:.32rem .65rem;min-height:auto">🔀 Shuffle</button>
+            <button class="btn btn-outline" onclick="resetReviews()" style="font-size:.72rem;padding:.32rem .65rem;min-height:auto">🔄 Reset</button>
+          </div>
+        </div>
+
+        <div class="fc-progress"><div class="fc-progress-fill" id="fc-progress-fill"></div></div>
+
+        <div class="fc-swipe-area" id="fc-swipe-area">
+          <div class="fc-card" id="fc-card" onclick="fcRevealAnswer()">
+            <span class="fc-sn" id="fc-sn">#1</span>
+            <div class="fc-question" id="fc-question">Loading…</div>
+            <div class="fc-answer-section" id="fc-answer-section">
+              <div class="fc-answer-lbl">Answer</div>
+              <div class="fc-answer-text" id="fc-answer-text"></div>
+            </div>
+            <div class="fc-tap-hint" id="fc-tap-hint">Tap to reveal answer</div>
+            <div class="fc-flip-indicator" id="fc-flip-ind"></div>
+          </div>
+        </div>
+
+        <!-- TTS row -->
+        <div class="fc-tts-row" id="fc-tts-row">
+          <div class="tts-toggle-wrap" id="tts-auto-toggle" onclick="toggleAutoTTS()" title="Auto-read pronunciation">
+            <div class="tts-toggle-switch" id="tts-switch"></div>
+            <span>Auto pronounce</span>
+          </div>
+          <button class="tts-btn" onclick="speakCurrent('en')" id="tts-en-btn" title="English pronunciation">
+            🔊 English
+          </button>
+          <button class="tts-btn" onclick="speakCurrent('bn')" id="tts-bn-btn" title="Bangla pronunciation">
+            🔊 বাংলা
+          </button>
+        </div>
+
+        <!-- Review buttons (shown after reveal) -->
+        <div class="fc-review-row" id="fc-review-row" style="display:none">
+          <button class="fc-review-btn btn-wrong" onclick="markFC('wrong')">❌ Wrong</button>
+          <button class="fc-review-btn btn-review" onclick="markFC('review')">🔖 Review</button>
+          <button class="fc-review-btn btn-correct" onclick="markFC('correct')">✅ Correct</button>
+        </div>
+
+        <div class="fc-nav-row">
+          <button class="btn btn-outline" id="fc-prev" onclick="fcNav(-1)">◀ Prev</button>
+          <button class="btn btn-outline" onclick="fcRevealAnswer()">👁 Reveal</button>
+          <button class="btn btn-primary" id="fc-next" onclick="fcNav(1)">Next ▶</button>
+        </div>
+        <div class="fc-keyboard-hint" id="fc-keyboard-hint">← → arrow keys to navigate · Space to reveal</div>
+      </div>
+    </section>
+
+    <!-- ── DASHBOARD ── -->
+    <section id="v-dashboard" class="hidden">
+      <div class="dashboard-grid" id="dash-grid">
+        <div class="dash-card">
+          <div class="dash-icon">📚</div>
+          <div class="dash-val" id="dash-total">–</div>
+          <div class="dash-lbl">Total Q&A</div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-icon">✅</div>
+          <div class="dash-val" style="color:var(--correct)" id="dash-correct">–</div>
+          <div class="dash-lbl">Correct</div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-icon">❌</div>
+          <div class="dash-val" style="color:var(--wrong)" id="dash-wrong">–</div>
+          <div class="dash-lbl">Wrong</div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-icon">🔖</div>
+          <div class="dash-val" style="color:var(--review)" id="dash-review">–</div>
+          <div class="dash-lbl">To Review</div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-icon">⭐</div>
+          <div class="dash-val" style="color:#f59e0b" id="dash-imp">–</div>
+          <div class="dash-lbl">Important (4+)</div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-icon">🏆</div>
+          <div class="dash-val" style="color:#f59e0b" id="dash-top">–</div>
+          <div class="dash-lbl">Top Star (5)</div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-icon">📈</div>
+          <div class="dash-val" id="dash-pct">0%</div>
+          <div class="dash-lbl">Progress</div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-icon">💬</div>
+          <div class="dash-val" id="dash-proverbs">–</div>
+          <div class="dash-lbl">Proverbs</div>
+        </div>
+      </div>
+
+      <div class="dash-review-bar" id="dash-review-bar"></div>
+
+      <div class="dash-section-title">📂 Categories</div>
+      <div class="dash-cat-list" id="dash-cat-list"></div>
+
+      <div style="text-align:center;margin-top:1rem">
+        <button class="btn btn-outline" onclick="resetReviews();showToast('Review data reset!')">🔄 Reset All Review Data</button>
       </div>
     </section>
 
@@ -522,11 +888,14 @@ section{animation:fadeUp .35s cubic-bezier(.25,.46,.45,.94) both;}
 
 <!-- ═══════════ BOTTOM NAV ═══════════ -->
 <nav class="bottom-nav" id="main-nav" aria-label="Main navigation">
-  <button class="nav-item active" onclick="showV('browse')">
+  <button class="nav-item active" data-view="browse" onclick="showV('browse')">
     <div class="nav-icon">📚</div><div class="nav-label">Browse</div>
   </button>
-  <button class="nav-item" onclick="showV('detail')">
-    <div class="nav-icon">🔍</div><div class="nav-label">Detail</div>
+  <button class="nav-item" data-view="flashcard" onclick="showV('flashcard')">
+    <div class="nav-icon">🃏</div><div class="nav-label">Flashcard</div>
+  </button>
+  <button class="nav-item" data-view="dashboard" onclick="showV('dashboard')">
+    <div class="nav-icon">📊</div><div class="nav-label">Dashboard</div>
   </button>
 </nav>
 
@@ -540,17 +909,24 @@ let curPg = 1;
 const pgSize = 18;
 let currentFontSize = parseInt(localStorage.getItem('qaFont')) || 16;
 let statFilter = '';
-let detailIdx = 0;
 let filteredList = [];
+
+// Flashcard state
+let fcList = [];
+let fcIdx = 0;
+let fcAnswerVisible = false;
+let autoTTS = false; // default off
+let reviewData = {};  // { sn: 'correct'|'wrong'|'review' }
 
 const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQVO00rJWyGaGm_kTqfKkgkZ-hPdNBQBk4uzvrk-_NLZyYhUsu7gmFx1N10wgXYh3btjB5H9rGnNDRc/pub?gid=0&single=true&output=csv';
 const CSV_KEY = 'qaCSVCache';
 const CSV_TS  = 'qaCSVTS';
 const CSV_AGE = 6 * 60 * 60 * 1000;
+const REVIEW_KEY = 'qaReviewData';
 
 /* ══ UTILS ══════════════════════════════════════ */
 function triggerHaptic(){ try{ if(navigator.vibrate) navigator.vibrate(10); }catch(e){} }
-let _toast; 
+let _toast;
 function showToast(msg, dur=2500){
   const t = document.getElementById('toast');
   t.textContent = msg; t.style.opacity='1'; t.style.transform='translateX(-50%) translateY(0)';
@@ -558,9 +934,25 @@ function showToast(msg, dur=2500){
   _toast = setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateX(-50%) translateY(8px)'; }, dur);
 }
 function esc(s){ return (s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;'); }
-function stars(n){ 
+function stars(n){
   n = Math.min(5, Math.max(0, parseInt(n)||0));
   return n > 0 ? '⭐'.repeat(n) : '';
+}
+
+/* ══ LOAD/SAVE REVIEWS ══════════════════════════ */
+function loadReviews(){
+  try{ reviewData = JSON.parse(localStorage.getItem(REVIEW_KEY)||'{}'); }catch(e){ reviewData={}; }
+}
+function saveReviews(){
+  try{ localStorage.setItem(REVIEW_KEY, JSON.stringify(reviewData)); }catch(e){}
+}
+function resetReviews(){
+  reviewData = {};
+  saveReviews();
+  updateStats();
+  renderBrowse(false);
+  if(!document.getElementById('v-flashcard').classList.contains('hidden')) renderFC();
+  if(!document.getElementById('v-dashboard').classList.contains('hidden')) renderDashboard();
 }
 
 /* ══ FONT SIZE ══════════════════════════════════ */
@@ -606,20 +998,16 @@ function closeMobileMenu(){
 }
 
 /* ══ SECTION SWITCHER ═══════════════════════════ */
-const ALL_VIEWS = ['browse','detail'];
+const ALL_VIEWS = ['browse','flashcard','dashboard'];
 function showV(v){
   triggerHaptic();
   ALL_VIEWS.forEach(id => document.getElementById('v-'+id).classList.add('hidden'));
   document.getElementById('v-'+v).classList.remove('hidden');
-  document.querySelectorAll('.nav-item, .d-nav-item').forEach(n=>n.classList.remove('active'));
-  document.querySelectorAll('.mobile-menu-item[data-view]').forEach(n=>n.classList.remove('active'));
-  const mi = ALL_VIEWS.indexOf(v);
-  const navItems = document.querySelectorAll('.nav-item');
-  const dNavItems = document.querySelectorAll('.d-nav-item');
-  if(navItems[mi]) navItems[mi].classList.add('active');
-  if(dNavItems[mi]) dNavItems[mi].classList.add('active');
-  document.querySelectorAll(`.mobile-menu-item[data-view="${v}"]`).forEach(n=>n.classList.add('active'));
+  document.querySelectorAll('.nav-item,.d-nav-item,.mobile-menu-item[data-view]').forEach(n=>n.classList.remove('active'));
+  document.querySelectorAll(`[data-view="${v}"]`).forEach(n=>n.classList.add('active'));
   window.scrollTo({top:0, behavior:'smooth'});
+  if(v==='flashcard' && fcList.length===0 && data.length>0) initFlashcards();
+  if(v==='dashboard') renderDashboard();
 }
 
 /* ══ CSV PARSER ════════════════════════════════ */
@@ -634,7 +1022,6 @@ function parseCSV(text){
       else cell+=ch;
     }
     row.push(cell.trim());
-    // Columns: SN(0), Question(1), Answer(2), Category(3), Importance(4), Proverb_en(5), Proverb_bn(6)
     if(row[1]){
       result.push({
         sn:         row[0] || String(i),
@@ -655,17 +1042,15 @@ async function loadData(){
   document.getElementById('grid-browse').innerHTML =
     Array(9).fill('<div class="skeleton-card"></div>').join('');
 
-  // Try cache first
   try{
     const cached = localStorage.getItem(CSV_KEY);
     const ts = parseInt(localStorage.getItem(CSV_TS)||'0');
     if(cached && (Date.now()-ts) < CSV_AGE){
       data = parseCSV(cached);
-      if(data.length){ initFilters(); renderBrowse(); updateStats(); refreshInBackground(); return; }
+      if(data.length){ initFilters(); renderBrowse(); updateStats(); showProverbPopup(); refreshInBackground(); return; }
     }
   }catch(e){}
 
-  // Fetch fresh
   try{
     const res = await fetch(CSV_URL, {cache:'default'});
     if(!res.ok) throw new Error('HTTP '+res.status);
@@ -673,7 +1058,7 @@ async function loadData(){
     data = parseCSV(text);
     if(!data.length) throw new Error('Empty');
     try{ localStorage.setItem(CSV_KEY, text); localStorage.setItem(CSV_TS, Date.now()); }catch(e){}
-    initFilters(); renderBrowse(); updateStats();
+    initFilters(); renderBrowse(); updateStats(); showProverbPopup();
   }catch(e){
     document.getElementById('grid-browse').innerHTML = `
       <div class="empty-state">
@@ -695,15 +1080,37 @@ async function refreshInBackground(){
   }catch(e){}
 }
 
+/* ══ PROVERB POPUP ══════════════════════════════ */
+function showProverbPopup(){
+  const proverbs = data.filter(d => d.proverb_en || d.proverb_bn);
+  if(!proverbs.length) return;
+  const p = proverbs[Math.floor(Math.random() * proverbs.length)];
+  const enEl = document.getElementById('pp-en');
+  const bnEl = document.getElementById('pp-bn');
+  enEl.textContent = p.proverb_en ? '💬 ' + p.proverb_en : '';
+  bnEl.textContent = p.proverb_bn || '';
+  enEl.style.display = p.proverb_en ? '' : 'none';
+  bnEl.style.display = p.proverb_bn ? '' : 'none';
+  const popup = document.getElementById('proverb-popup');
+  popup.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeProverbPopup(){
+  document.getElementById('proverb-popup').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
 /* ══ STATS ══════════════════════════════════════ */
 function updateStats(){
   const total = data.length;
   const impCnt = data.filter(d => d.importance >= 4).length;
   const starCnt = data.filter(d => d.importance >= 5).length;
+  const rvwCnt = Object.keys(reviewData).length;
   document.getElementById('c-all').textContent = total;
   document.getElementById('c-imp').textContent = impCnt;
   document.getElementById('c-star').textContent = starCnt;
-  const pct = total > 0 ? Math.round(impCnt / total * 100) : 0;
+  document.getElementById('c-rvw').textContent = rvwCnt;
+  const pct = total > 0 ? Math.round(rvwCnt / total * 100) : 0;
   document.getElementById('overall-progress-fill').style.width = pct + '%';
 }
 
@@ -714,11 +1121,13 @@ function filterByStat(status){
   if(status === '') document.getElementById('st-all').classList.add('active-chip');
   if(status === 'imp') document.getElementById('st-imp').classList.add('active-chip');
   if(status === 'star') document.getElementById('st-star').classList.add('active-chip');
+  if(status === 'rvw') document.getElementById('st-rvw').classList.add('active-chip');
   curPg=1; renderBrowse();
 }
 document.getElementById('st-all').onclick = ()=>filterByStat('');
 document.getElementById('st-imp').onclick = ()=>filterByStat('imp');
 document.getElementById('st-star').onclick = ()=>filterByStat('star');
+document.getElementById('st-rvw').onclick = ()=>filterByStat('rvw');
 
 /* ══ INIT FILTERS ═══════════════════════════════ */
 function initFilters(){
@@ -726,13 +1135,9 @@ function initFilters(){
   const catSel = document.getElementById('f-cat');
   catSel.innerHTML = '<option value="">All Categories</option>' +
     cats.map(c => `<option value="${c}">${c}</option>`).join('');
-}
-
-/* ══ GOOGLE SEARCH ══════════════════════════════ */
-function googleSearch(question){
-  triggerHaptic();
-  const url = 'https://www.google.com/search?q=' + encodeURIComponent(question);
-  window.open(url, '_blank', 'noopener,noreferrer');
+  const fcCatSel = document.getElementById('fc-cat-filter');
+  fcCatSel.innerHTML = '<option value="">All Categories</option>' +
+    cats.map(c => `<option value="${c}">${c}</option>`).join('');
 }
 
 /* ══ CREATE CARD HTML ═══════════════════════════ */
@@ -740,35 +1145,71 @@ function createCard(d, idx){
   const starsHtml = d.importance > 0 ? `<span class="stars">${'⭐'.repeat(Math.min(5,d.importance))}</span>` : '';
   const proEn = d.proverb_en ? `<div class="c-proverb-en">💬 ${d.proverb_en}</div>` : '';
   const proBn = d.proverb_bn ? `<div class="c-proverb-bn">${d.proverb_bn}</div>` : '';
+  const rv = reviewData[d.sn];
+  const rvBadge = rv ? `<div class="review-badge" style="background:${rv==='correct'?'var(--correct-soft)':rv==='wrong'?'var(--wrong-soft)':'var(--review-soft)'};color:${rv==='correct'?'var(--correct)':rv==='wrong'?'var(--wrong)':'var(--review)'};border-color:${rv==='correct'?'var(--correct)':rv==='wrong'?'var(--wrong)':'var(--review)'};">${rv==='correct'?'✅':rv==='wrong'?'❌':'🔖'}</div>` : '';
+
   return `
-    <article class="wcard" role="listitem" onclick="openDetailFromCard(${idx})" tabindex="0" onkeydown="if(event.key==='Enter')openDetailFromCard(${idx})">
-      <div class="card-top">
+    <article class="wcard" role="listitem" tabindex="0" onkeydown="if(event.key==='Enter')openModal(${idx})">
+      ${rvBadge}
+      <div class="card-sn-row">
         <span class="c-sn">#${d.sn}</span>
-        <div class="c-question">${d.question}</div>
-      </div>
-      ${d.answer ? `<div class="c-answer">${d.answer.length > 120 ? d.answer.slice(0,120)+'…' : d.answer}</div>` : ''}
-      <div class="card-meta">
         ${d.category ? `<span class="c-tag">${d.category}</span>` : ''}
         ${starsHtml}
       </div>
+      <div class="c-question">${d.question}</div>
+      ${d.answer ? `<div class="c-answer-wrap"><div class="c-answer">${d.answer.length > 130 ? d.answer.slice(0,130)+'…' : d.answer}</div></div>` : ''}
       ${proEn}${proBn}
       <div class="card-actions" onclick="event.stopPropagation()">
-        <button class="btn btn-google" onclick="googleSearch('${esc(d.question)}')" title="Search on Google">
-          <svg width="12" height="12" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" fill="#fff" fill-opacity=".9"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z" fill="#fff" fill-opacity=".75"/><path d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#fff" fill-opacity=".6"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#fff" fill-opacity=".8"/></svg>
-          Google
-        </button>
-        <button class="btn btn-outline" onclick="openDetailFromCard(${idx})" style="font-size:.72rem;padding:.38rem .7rem;min-height:auto">👁 Details</button>
+        <button class="btn btn-outline" onclick="openModal(${idx})" style="font-size:.7rem;padding:.35rem .65rem;min-height:auto">👁 View</button>
+        <button class="btn btn-outline" onclick="markCardReview('${esc(d.sn)}','correct',${idx})" style="font-size:.7rem;padding:.35rem .55rem;min-height:auto;color:var(--correct);border-color:var(--correct)" title="Mark correct">✅</button>
+        <button class="btn btn-outline" onclick="markCardReview('${esc(d.sn)}','wrong',${idx})" style="font-size:.7rem;padding:.35rem .55rem;min-height:auto;color:var(--wrong);border-color:var(--wrong)" title="Mark wrong">❌</button>
+        <button class="btn btn-outline" onclick="markCardReview('${esc(d.sn)}','review',${idx})" style="font-size:.7rem;padding:.35rem .55rem;min-height:auto;color:var(--review);border-color:var(--review)" title="Mark for review">🔖</button>
       </div>
     </article>`;
 }
 
-/* ══ OPEN DETAIL FROM CARD ══════════════════════ */
-function openDetailFromCard(idx){
+function markCardReview(sn, status, localIdx){
   triggerHaptic();
-  detailIdx = idx;
-  renderDetail(idx);
-  showV('detail');
+  if(reviewData[sn] === status){ delete reviewData[sn]; }
+  else { reviewData[sn] = status; }
+  saveReviews();
+  updateStats();
+  renderBrowse(false);
 }
+
+/* ══ MODAL ══════════════════════════════════════ */
+function openModal(idx){
+  triggerHaptic();
+  const d = filteredList[idx];
+  if(!d) return;
+  const starsHtml = d.importance > 0 ? `<span class="stars">${'⭐'.repeat(Math.min(5,d.importance))}</span>` : '';
+  const rv = reviewData[d.sn];
+
+  document.getElementById('modal-content').innerHTML = `
+    <div class="modal-meta">
+      <div class="modal-sn">#${d.sn}</div>
+      ${d.category ? `<span class="c-tag">${d.category}</span>` : ''}
+      ${starsHtml}
+      ${rv ? `<span style="font-size:.65rem;font-weight:800;padding:2px 8px;border-radius:99px;background:${rv==='correct'?'var(--correct-soft)':rv==='wrong'?'var(--wrong-soft)':'var(--review-soft)'};color:${rv==='correct'?'var(--correct)':rv==='wrong'?'var(--wrong)':'var(--review)'}">${rv==='correct'?'✅ Correct':rv==='wrong'?'❌ Wrong':'🔖 Review'}</span>` : ''}
+    </div>
+    <div class="modal-question" id="modal-question-el">${d.question}</div>
+    ${d.answer ? `<div class="modal-lbl">Answer</div><div class="modal-answer">${d.answer}</div>` : ''}
+    ${d.proverb_en ? `<div class="modal-block"><div class="modal-lbl">Proverb (English)</div><div class="modal-proverb-en">💬 ${d.proverb_en}</div></div>` : ''}
+    ${d.proverb_bn ? `<div class="modal-block"><div class="modal-lbl">Proverb (বাংলা)</div><div class="modal-proverb-bn">${d.proverb_bn}</div></div>` : ''}
+    <div style="display:flex;gap:.4rem;margin-top:1rem;flex-wrap:wrap">
+      <button onclick="markCardReview('${esc(d.sn)}','correct',${idx});closeWordModal()" style="flex:1;padding:.55rem .5rem;border-radius:var(--radius-md);background:var(--correct-soft);color:var(--correct);border:1.5px solid var(--correct);font-weight:700;font-size:.78rem;cursor:pointer;font-family:inherit">✅ Correct</button>
+      <button onclick="markCardReview('${esc(d.sn)}','wrong',${idx});closeWordModal()" style="flex:1;padding:.55rem .5rem;border-radius:var(--radius-md);background:var(--wrong-soft);color:var(--wrong);border:1.5px solid var(--wrong);font-weight:700;font-size:.78rem;cursor:pointer;font-family:inherit">❌ Wrong</button>
+      <button onclick="markCardReview('${esc(d.sn)}','review',${idx});closeWordModal()" style="flex:1;padding:.55rem .5rem;border-radius:var(--radius-md);background:var(--review-soft);color:var(--review);border:1.5px solid var(--review);font-weight:700;font-size:.78rem;cursor:pointer;font-family:inherit">🔖 Review</button>
+    </div>`;
+
+  document.getElementById('word-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeWordModal(){
+  document.getElementById('word-modal').classList.remove('open');
+  document.body.style.overflow='';
+}
+function closeModal(e){ if(e.target.id==='word-modal') closeWordModal(); }
 
 /* ══ RENDER BROWSE ══════════════════════════════ */
 function renderBrowse(scroll=true){
@@ -789,7 +1230,8 @@ function renderBrowse(scroll=true){
     const mi = !imp || d.importance >= parseInt(imp);
     const ms2 = !statFilter ||
       (statFilter === 'imp' && d.importance >= 4) ||
-      (statFilter === 'star' && d.importance >= 5);
+      (statFilter === 'star' && d.importance >= 5) ||
+      (statFilter === 'rvw' && reviewData[d.sn]);
     return ms && mc && mi && ms2;
   });
 
@@ -815,89 +1257,271 @@ function renderBrowse(scroll=true){
 }
 
 /* ══ RENDER PAGINATION ══════════════════════════ */
-function renderPag(total, count){
+function renderPag(totalPages, count){
   const box = document.getElementById('pag-box');
-  if(total <= 1){
+  const jw = document.getElementById('page-jump-wrap');
+
+  if(totalPages <= 1){
     box.innerHTML = count
       ? `<small style="color:var(--text-sub);font-weight:600">${count} item${count>1?'s':''} found</small>` : '';
+    if(jw) jw.style.display='none';
     return;
   }
+
   let html = `<small style="color:var(--text-sub);font-weight:600;margin-right:.4rem">${count} items</small>`;
-  for(let i=1; i<=total; i++){
-    if(i===1 || i===total || Math.abs(i-curPg)<=1){
-      html += `<button class="btn ${i===curPg?'btn-primary':'btn-outline'}" style="min-width:34px;padding:5px 6px;font-size:.8rem" onclick="setPg(${i})" aria-label="Page ${i}"${i===curPg?' aria-current="page"':''}>${i}</button>`;
+  for(let i=1; i<=totalPages; i++){
+    if(i===1 || i===totalPages || Math.abs(i-curPg)<=1){
+      html += `<button class="btn ${i===curPg?'btn-primary':'btn-outline'}" style="min-width:32px;padding:4px 6px;font-size:.78rem" onclick="setPg(${i})" aria-label="Page ${i}"${i===curPg?' aria-current="page"':''}>${i}</button>`;
     } else if(Math.abs(i-curPg)===2){
       html += `<span style="opacity:.35;align-self:center">…</span>`;
     }
   }
+
+  // Page jump
+  if(jw){
+    jw.style.display='flex';
+    const ji = document.getElementById('page-jump-input');
+    if(ji){ ji.max = totalPages; ji.placeholder = curPg; }
+  }
+  // Replace box content
   box.innerHTML = html;
+  // Re-append jump after render
+  if(jw) box.appendChild(jw);
+  jw.style.display='flex';
+  const ji2 = document.getElementById('page-jump-input');
+  if(ji2){ ji2.max = totalPages; ji2.placeholder = curPg; }
 }
 function setPg(p){ triggerHaptic(); curPg=p; renderBrowse(); }
-
-/* ══ DETAIL VIEW ════════════════════════════════ */
-function renderDetail(idx){
-  const d = filteredList[idx];
-  if(!d){ document.getElementById('detail-card-el').innerHTML = '<div style="padding:3rem;text-align:center;color:var(--text-sub)"><p style="font-weight:600">No item found.</p></div>'; return; }
-
-  const starsHtml = d.importance > 0 ? `<span class="stars">${'⭐'.repeat(Math.min(5,d.importance))}</span>` : '';
-
-  document.getElementById('detail-card-el').innerHTML = `
-    <div class="detail-header">
-      <div class="detail-sn"># ${d.sn} ${starsHtml}</div>
-      <div class="detail-question">${d.question}</div>
-      <div class="card-meta" style="margin-top:.5rem">
-        ${d.category ? `<span class="c-tag">${d.category}</span>` : ''}
-        ${d.importance > 0 ? `<span style="font-size:.75rem;color:var(--text-sub);font-weight:600">Importance: ${d.importance}/5</span>` : ''}
-      </div>
-    </div>
-    <div class="detail-body">
-      ${d.answer ? `<div class="modal-lbl">Answer</div><div class="detail-answer">${d.answer}</div>` : ''}
-      ${d.proverb_en ? `<div class="modal-block">
-        <div class="modal-lbl">Proverb (English)</div>
-        <div class="detail-proverb-en">💬 ${d.proverb_en}</div>
-      </div>` : ''}
-      ${d.proverb_bn ? `<div class="modal-block">
-        <div class="modal-lbl">Proverb (বাংলা)</div>
-        <div class="detail-proverb-bn">${d.proverb_bn}</div>
-      </div>` : ''}
-      <div style="display:flex;gap:.5rem;margin-top:1.2rem;flex-wrap:wrap">
-        <button class="btn-google" onclick="googleSearch('${esc(d.question)}')" style="display:flex;align-items:center;gap:.4rem;padding:.55rem 1rem;border-radius:var(--radius-sm);cursor:pointer;font-family:inherit;font-weight:700;font-size:.85rem;background:linear-gradient(135deg,#4285f4,#34a853);color:#fff;border:none;transition:opacity .18s">
-          <svg width="14" height="14" viewBox="0 0 18 18" fill="none"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" fill="#fff" fill-opacity=".9"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z" fill="#fff" fill-opacity=".75"/><path d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#fff" fill-opacity=".6"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#fff" fill-opacity=".8"/></svg>
-          Search on Google
-        </button>
-      </div>
-    </div>`;
-
-  // Prev/Next nav
-  const prevBtn = document.getElementById('detail-prev-btn');
-  const nextBtn = document.getElementById('detail-next-btn');
-  prevBtn.style.display = idx > 0 ? '' : 'none';
-  nextBtn.style.display = idx < filteredList.length-1 ? '' : 'none';
+function doPageJump(){
+  const ji = document.getElementById('page-jump-input');
+  const p = parseInt(ji.value);
+  if(p >= 1){ triggerHaptic(); curPg = p; renderBrowse(); ji.value=''; }
 }
 
-function detailNav(dir){
+/* ══ FLASHCARD INIT ═════════════════════════════ */
+function initFlashcards(){
+  const cat = document.getElementById('fc-cat-filter').value;
+  fcList = cat ? data.filter(d => d.category === cat) : [...data];
+  fcIdx = 0;
+  fcAnswerVisible = false;
+  renderFC();
+  showToast(`🃏 ${fcList.length} cards loaded`);
+}
+function shuffleFC(){
   triggerHaptic();
-  const newIdx = detailIdx + dir;
-  if(newIdx >= 0 && newIdx < filteredList.length){
-    detailIdx = newIdx;
-    renderDetail(detailIdx);
-    window.scrollTo({top:0, behavior:'smooth'});
+  for(let i=fcList.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [fcList[i],fcList[j]]=[fcList[j],fcList[i]];
+  }
+  fcIdx=0; fcAnswerVisible=false; renderFC();
+  showToast('🔀 Cards shuffled!');
+}
+
+/* ══ RENDER FLASHCARD ═══════════════════════════ */
+function renderFC(){
+  if(!fcList.length){
+    document.getElementById('fc-question').textContent = 'No cards available.';
+    document.getElementById('fc-counter').textContent = '0 / 0';
+    return;
+  }
+  const d = fcList[fcIdx];
+  const rv = reviewData[d.sn];
+  document.getElementById('fc-sn').textContent = '#' + d.sn;
+  document.getElementById('fc-question').textContent = d.question;
+  document.getElementById('fc-answer-text').textContent = d.answer || '(No answer)';
+  document.getElementById('fc-counter').textContent = `${fcIdx+1} / ${fcList.length}`;
+
+  // Progress
+  const pct = ((fcIdx+1)/fcList.length*100).toFixed(1);
+  document.getElementById('fc-progress-fill').style.width = pct+'%';
+
+  // Review indicator
+  const ind = document.getElementById('fc-flip-ind');
+  ind.textContent = rv ? (rv==='correct'?'✅':rv==='wrong'?'❌':'🔖') : '';
+
+  // Hide answer
+  const ansSec = document.getElementById('fc-answer-section');
+  ansSec.classList.remove('visible');
+  fcAnswerVisible = false;
+  document.getElementById('fc-tap-hint').style.display = '';
+  document.getElementById('fc-review-row').style.display = 'none';
+
+  // Nav buttons
+  document.getElementById('fc-prev').disabled = fcIdx === 0;
+  document.getElementById('fc-next').disabled = fcIdx === fcList.length-1;
+
+  // Review summary
+  updateFCReviewSummary();
+
+  if(autoTTS) setTimeout(()=>speakCurrent('en'), 300);
+}
+
+function updateFCReviewSummary(){
+  const total = fcList.length;
+  let correct=0,wrong=0,review=0;
+  fcList.forEach(d=>{ const rv=reviewData[d.sn]; if(rv==='correct')correct++;else if(rv==='wrong')wrong++;else if(rv==='review')review++; });
+  const unanswered = total - correct - wrong - review;
+  document.getElementById('rv-correct').textContent = correct;
+  document.getElementById('rv-wrong').textContent = wrong;
+  document.getElementById('rv-review').textContent = review;
+  document.getElementById('rv-unanswered').textContent = unanswered;
+  document.getElementById('fc-review-summary').style.display = (correct+wrong+review > 0) ? '' : 'none';
+}
+
+function fcRevealAnswer(){
+  if(fcAnswerVisible) return;
+  triggerHaptic();
+  const ansSec = document.getElementById('fc-answer-section');
+  ansSec.classList.add('visible');
+  fcAnswerVisible = true;
+  document.getElementById('fc-tap-hint').style.display = 'none';
+  document.getElementById('fc-review-row').style.display = 'flex';
+  if(autoTTS) speakCurrent('en');
+}
+
+function fcNav(dir){
+  triggerHaptic();
+  const newIdx = fcIdx + dir;
+  if(newIdx >= 0 && newIdx < fcList.length){
+    fcIdx = newIdx;
+    renderFC();
+    window.scrollTo({top:0,behavior:'smooth'});
   }
 }
 
-/* ══ MODAL ══════════════════════════════════════ */
-function closeWordModal(){
-  document.getElementById('word-modal').classList.remove('open');
-  document.body.style.overflow='';
+function markFC(status){
+  triggerHaptic();
+  const d = fcList[fcIdx];
+  if(reviewData[d.sn] === status){ delete reviewData[d.sn]; showToast('Review cleared'); }
+  else { reviewData[d.sn] = status; showToast(status==='correct'?'✅ Marked correct':status==='wrong'?'❌ Marked wrong':'🔖 Marked for review'); }
+  saveReviews();
+  updateStats();
+  document.getElementById('fc-flip-ind').textContent = reviewData[d.sn] ? (reviewData[d.sn]==='correct'?'✅':reviewData[d.sn]==='wrong'?'❌':'🔖') : '';
+  updateFCReviewSummary();
+  // Auto advance after mark
+  setTimeout(()=>{ if(fcIdx < fcList.length-1) fcNav(1); }, 500);
 }
-function closeModal(e){ if(e.target.id==='word-modal') closeWordModal(); }
+
+/* ══ TTS ════════════════════════════════════════ */
+function toggleAutoTTS(){
+  autoTTS = !autoTTS;
+  const wrap = document.getElementById('tts-auto-toggle');
+  wrap.classList.toggle('on', autoTTS);
+  showToast(autoTTS ? '🔊 Auto pronounce ON' : '🔇 Auto pronounce OFF');
+}
+function speakCurrent(lang){
+  if(!window.speechSynthesis) return showToast('Speech not supported');
+  const d = fcList[fcIdx];
+  if(!d) return;
+  window.speechSynthesis.cancel();
+  const text = lang === 'bn' ? (d.proverb_bn || d.question) : (d.question + '. ' + (d.answer||''));
+  const utt = new SpeechSynthesisUtterance(text);
+  utt.lang = lang === 'bn' ? 'bn-BD' : 'en-US';
+  utt.rate = 0.9;
+  window.speechSynthesis.speak(utt);
+  const btn = lang === 'bn' ? document.getElementById('tts-bn-btn') : document.getElementById('tts-en-btn');
+  if(btn){ btn.classList.add('active'); utt.onend = ()=>btn.classList.remove('active'); }
+}
+
+/* ══ SWIPE ══════════════════════════════════════ */
+(function(){
+  let startX=0, startY=0, isDragging=false;
+  const area = document.getElementById('fc-swipe-area');
+  if(!area) return;
+
+  area.addEventListener('touchstart', e=>{
+    if(e.touches.length !== 1) return;
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    isDragging = true;
+  }, {passive:true});
+
+  area.addEventListener('touchmove', e=>{
+    if(!isDragging || e.touches.length !== 1) return;
+    const dx = e.touches[0].clientX - startX;
+    const dy = e.touches[0].clientY - startY;
+    if(Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 10){
+      e.preventDefault();
+      document.getElementById('fc-card').style.transform = `translateX(${dx*0.4}px) rotate(${dx*0.02}deg)`;
+    }
+  }, {passive:false});
+
+  area.addEventListener('touchend', e=>{
+    if(!isDragging) return;
+    isDragging = false;
+    const card = document.getElementById('fc-card');
+    const dx = e.changedTouches[0].clientX - startX;
+    card.style.transition = 'transform .3s cubic-bezier(.25,.46,.45,.94)';
+    card.style.transform = '';
+    setTimeout(()=>{ card.style.transition=''; }, 300);
+
+    if(Math.abs(dx) > 50){
+      if(dx < 0) fcNav(1);
+      else fcNav(-1);
+    } else {
+      // Short tap
+      const dy = Math.abs(e.changedTouches[0].clientY - startY);
+      if(Math.abs(dx) < 10 && dy < 10) fcRevealAnswer();
+    }
+  }, {passive:true});
+})();
+
+/* ══ DASHBOARD ══════════════════════════════════ */
+function renderDashboard(){
+  const total = data.length;
+  const impCnt = data.filter(d => d.importance >= 4).length;
+  const starCnt = data.filter(d => d.importance >= 5).length;
+  const proverbCnt = data.filter(d => d.proverb_en || d.proverb_bn).length;
+  let correct=0,wrong=0,review=0;
+  data.forEach(d=>{ const rv=reviewData[d.sn]; if(rv==='correct')correct++;else if(rv==='wrong')wrong++;else if(rv==='review')review++; });
+  const rvTotal = correct+wrong+review;
+  const pct = total>0 ? Math.round(rvTotal/total*100) : 0;
+
+  document.getElementById('dash-total').textContent = total;
+  document.getElementById('dash-correct').textContent = correct;
+  document.getElementById('dash-wrong').textContent = wrong;
+  document.getElementById('dash-review').textContent = review;
+  document.getElementById('dash-imp').textContent = impCnt;
+  document.getElementById('dash-top').textContent = starCnt;
+  document.getElementById('dash-pct').textContent = pct+'%';
+  document.getElementById('dash-proverbs').textContent = proverbCnt;
+
+  // Review progress bar
+  const bar = document.getElementById('dash-review-bar');
+  const w = 100/Math.max(total,1);
+  bar.innerHTML = `
+    <div class="dash-rv-seg" style="flex:${correct};background:var(--correct);min-width:${correct?'4px':'0'}" title="Correct: ${correct}"></div>
+    <div class="dash-rv-seg" style="flex:${wrong};background:var(--wrong);min-width:${wrong?'4px':'0'}" title="Wrong: ${wrong}"></div>
+    <div class="dash-rv-seg" style="flex:${review};background:var(--review);min-width:${review?'4px':'0'}" title="Review: ${review}"></div>
+    <div class="dash-rv-seg" style="flex:${total-rvTotal};background:var(--border);min-width:${(total-rvTotal)?'4px':'0'}" title="Left: ${total-rvTotal}"></div>`;
+
+  // Categories
+  const cats = {};
+  data.forEach(d=>{ cats[d.category]=(cats[d.category]||0)+1; });
+  const sortedCats = Object.entries(cats).sort((a,b)=>b[1]-a[1]);
+  const maxCnt = sortedCats[0]?.[1] || 1;
+  document.getElementById('dash-cat-list').innerHTML = sortedCats.map(([c,cnt])=>`
+    <div class="dash-cat-row">
+      <span class="dash-cat-name">${c}</span>
+      <div class="dash-cat-bar-wrap"><div class="dash-cat-bar" style="width:${(cnt/maxCnt*100).toFixed(0)}%"></div></div>
+      <span class="dash-cat-cnt">${cnt}</span>
+    </div>`).join('');
+}
 
 /* ══ KEYBOARD ═══════════════════════════════════ */
 document.addEventListener('keydown', e=>{
-  if(e.key==='Escape') closeWordModal();
-  if(!document.getElementById('v-detail').classList.contains('hidden')){
-    if(e.key==='ArrowLeft') detailNav(-1);
-    if(e.key==='ArrowRight') detailNav(1);
+  if(e.key==='Escape'){
+    closeWordModal();
+    closeProverbPopup();
+  }
+  const isFC = !document.getElementById('v-flashcard').classList.contains('hidden');
+  if(isFC){
+    if(e.key==='ArrowLeft') fcNav(-1);
+    if(e.key==='ArrowRight') fcNav(1);
+    if(e.key===' '){ e.preventDefault(); fcRevealAnswer(); }
+  }
+  if(e.key==='Enter' && document.getElementById('page-jump-input') === document.activeElement){
+    doPageJump();
   }
 });
 
@@ -908,7 +1532,7 @@ window.addEventListener('online',  ()=>showToast('🌐 Back online!', 2000));
 /* ══ SERVICE WORKER ═════════════════════════════ */
 if('serviceWorker' in navigator){
   const swCode = `
-const CACHE='qa-sw-v1';
+const CACHE='qa-sw-v2';
 self.addEventListener('install',e=>{self.skipWaiting();});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==CACHE).map(x=>caches.delete(x)))));self.clients.claim();});
 self.addEventListener('fetch',e=>{
@@ -926,6 +1550,7 @@ self.addEventListener('fetch',e=>{
 }
 
 /* ══ INIT ═══════════════════════════════════════ */
+loadReviews();
 window.addEventListener('load', loadData);
 document.addEventListener('visibilitychange', ()=>{
   if(document.hidden && window.speechSynthesis) window.speechSynthesis.cancel();

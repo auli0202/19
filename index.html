@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en" id="root-html">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#2563eb">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Q&A Master | Proverb Library</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Noto+Serif+Bengali:wght@500;600;700&display=swap" rel="stylesheet">
+<script>
+(function(){
+  if(localStorage.getItem('qaDark')==='dark') document.documentElement.classList.add('dark');
+  var f=localStorage.getItem('qaFont');
+  document.documentElement.style.fontSize=(f?f:'16')+'px';
+})();
+</script>
+<style>
+/* ═══════════ VARIABLES ═══════════ */
+:root{
+  --bg-main:#eef2fa;
+  --card-bg:#ffffff;
+  --text-main:#12213a;
+  --text-sub:#415470;
+  --accent:#1a56c4;
+  --accent-soft:#dce8fc;
+  --accent-mid:#7fa3e0;
+  --border:#dde4f0;
+  --nav-bg:rgba(248,250,255,0.97);
+  --correct:#1a7a46;
+  --correct-soft:rgba(26,122,70,.09);
+  --wrong:#bf3526;
+  --wrong-soft:rgba(191,53,38,.09);
+  --review:#a84f00;
+  --review-soft:rgba(168,79,0,.09);
+  --ex-bg:#edf1f9;
+  --shadow:0 2px 12px rgba(37,99,200,.07);
+  --shadow-md:0 4px 20px rgba(37,99,200,.11);
+  --shadow-lg:0 10px 38px rgba(37,99,200,.14);
+  --radius-xs:.4rem;
+  --radius-sm:.65rem;
+  --radius-md:1rem;
+  --radius-lg:1.5rem;
+  --radius-xl:2rem;
+  --transition:.28s cubic-bezier(.25,.46,.45,.94);
+  --transition-bounce:.35s cubic-bezier(.34,1.56,.64,1);
+  --nav-h:4.8rem;
+  --fs-xs:.78rem;
+  --fs-sm:.88rem;
+  --fs-base:1rem;
+  --fs-md:1.1rem;
+  --lh-base:1.75;
+}
+html.dark{
+  --bg-main:#0e1520;
+  --card-bg:#172030;
+  --text-main:#e8eef8;
+  --text-sub:#8aaac8;
+  --accent:#6aaaf8;
+  --accent-soft:#1b3050;
+  --accent-mid:#2e4f80;
+  --border:#20304a;
+  --nav-bg:rgba(13,18,28,0.97);
+  --correct:#30a268;
+  --correct-soft:rgba(48,162,104,.13);
+  --wrong:#e05050;
+  --wrong-soft:rgba(224,80,80,.13);
+  --review:#cf832a;
+  --review-soft:rgba(207,131,42,.13);
+  --ex-bg:#15202e;
+  --shadow:0 2px 14px rgba(0,0,0,.35);
+  --shadow-md:0 4px 22px rgba(0,0,0,.45);
+  --shadow-lg:0 10px 42px rgba(0,0,0,.6);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg-main);
+  color:var(--text-main);
+  font-family:'Plus Jakarta Sans',sans-serif;
+  padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom,0px) + 1.5rem);
+  line-height:var(--lh-base);
+  overflow-x:hidden;
+  transition:background .45s,color .45s;
+  min-height:100vh;
+  font-size:var(--fs-base);
+  -webkit-font-smoothing:antialiased;
+}
+@media(min-width:768px){body{padding-bottom:2.5rem;}}
+
+/* ═══════════ HEADER ═══════════ */
+.header{
+  background:linear-gradient(135deg,rgba(248,250,255,0.88) 0%,rgba(230,238,255,0.82) 100%);
+  backdrop-filter:blur(28px) saturate(2.2);
+  -webkit-backdrop-filter:blur(28px) saturate(2.2);
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  padding:.75rem 1rem .65rem;
+  border-bottom:1px solid rgba(255,255,255,0.55);
+  box-shadow:0 1px 0 rgba(255,255,255,0.9) inset,0 4px 24px rgba(37,99,200,.10);
+}
+html.dark .header{
+  background:linear-gradient(135deg,rgba(13,18,28,0.88) 0%,rgba(20,28,48,0.82) 100%);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  box-shadow:0 1px 0 rgba(255,255,255,0.05) inset,0 4px 24px rgba(0,0,0,.35);
+}
+#header-spacer{height:var(--hdr-h,80px);flex-shrink:0;}
+.header-inner{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:.55rem;}
+.header-top{display:flex;justify-content:space-between;align-items:center;gap:.5rem;}
+.logo{font-weight:800;font-size:1.55rem;color:var(--accent);cursor:pointer;letter-spacing:-.04em;user-select:none;flex-shrink:0;}
+.logo span{color:var(--text-main);}
+.header-actions{display:flex;align-items:center;gap:.35rem;flex-shrink:0;}
+.action-btn{
+  width:2.1rem;height:2.1rem;border-radius:50%;
+  border:1.5px solid var(--border);background:var(--card-bg);
+  color:var(--text-main);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:.88rem;
+  transition:background var(--transition),border-color var(--transition),transform .18s cubic-bezier(.34,1.56,.64,1);
+  flex-shrink:0;
+}
+.action-btn:hover{background:var(--accent-soft);border-color:var(--accent);}
+.action-btn:active{transform:scale(.88);}
+
+/* Stats row */
+.stats-row{display:flex;gap:.45rem;}
+.stat-chip{
+  flex:1;height:3.4rem;border-radius:var(--radius-md);
+  border:1.5px solid var(--border);background:var(--card-bg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  cursor:pointer;min-width:0;user-select:none;
+  transition:background var(--transition),border-color var(--transition),transform .22s cubic-bezier(.34,1.56,.64,1);
+}
+.stat-chip:active{transform:scale(.95);}
+.stat-chip .chip-label{font-size:.52rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;opacity:.65;}
+.stat-chip .chip-val{font-size:1.05rem;font-weight:800;margin-top:1px;}
+.stat-chip.total{border-color:var(--accent);color:var(--accent);}
+.stat-chip.starred{border-color:#f59e0b;color:#f59e0b;}
+.stat-chip.active-chip{background:var(--accent);color:#fff!important;}
+.stat-chip.active-chip .chip-label,.stat-chip.active-chip .chip-val{color:#fff!important;opacity:1;}
+
+/* Progress bar */
+.progress-track{width:100%;height:4px;background:var(--border);border-radius:99px;overflow:hidden;}
+#overall-progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),#60a5fa);transition:width .75s cubic-bezier(.25,.46,.45,.94);border-radius:99px;}
+
+/* ═══════════ LAYOUT ═══════════ */
+.main-container{max-width:1200px;margin:0 auto;padding:1rem;}
+
+/* ═══════════ CONTROLS ═══════════ */
+.controls{
+  background:var(--card-bg);padding:.85rem;border-radius:var(--radius-lg);
+  border:1px solid var(--border);display:flex;flex-wrap:wrap;gap:.5rem;
+  margin-bottom:1.2rem;box-shadow:var(--shadow);
+}
+input,select,.btn{
+  padding:.58rem .85rem;border-radius:var(--radius-sm);
+  border:1.5px solid var(--border);background:var(--card-bg);
+  color:var(--text-main);font-size:.91rem;outline:none;font-family:inherit;
+  transition:border-color var(--transition),box-shadow var(--transition);
+  min-height:2.65rem;
+}
+input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.12);}
+input::placeholder{color:var(--text-sub);opacity:.8;}
+select{cursor:pointer;appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%23888' d='M7 7l3 3 3-3'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right .6rem center;background-size:1.1rem;
+  padding-right:2rem!important;font-weight:600;
+}
+#search-input{flex:1;min-width:180px;}
+.btn{cursor:pointer;font-weight:700;letter-spacing:.01em;
+  transition:background var(--transition),color var(--transition),transform .18s cubic-bezier(.34,1.56,.64,1);
+}
+.btn:active{transform:scale(.96);}
+.btn-primary{background:var(--accent);color:#fff;border-color:var(--accent);}
+.btn-primary:hover{opacity:.9;}
+.btn-outline{background:var(--card-bg);color:var(--text-main);border-color:var(--border);}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+.btn-google{background:linear-gradient(135deg,#4285f4,#34a853);color:#fff;border:none;display:flex;align-items:center;gap:.4rem;font-size:.8rem;padding:.45rem .8rem;border-radius:var(--radius-sm);cursor:pointer;font-family:inherit;font-weight:700;transition:opacity .18s,transform .18s cubic-bezier(.34,1.56,.64,1);}
+.btn-google:hover{opacity:.88;}
+.btn-google:active{transform:scale(.94);}
+
+/* ═══════════ WORD GRID ═══════════ */
+.word-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:.85rem;}
+@media(max-width:767px){.word-grid{grid-template-columns:1fr;}}
+@media(min-width:480px) and (max-width:767px){.word-grid{grid-template-columns:repeat(2,1fr);}}
+
+/* ═══════════ CARD ═══════════ */
+.wcard{
+  background:var(--card-bg);border-radius:var(--radius-lg);
+  border:1.5px solid var(--border);padding:1.15rem;
+  box-shadow:var(--shadow);cursor:pointer;
+  transition:transform .22s cubic-bezier(.34,1.56,.64,1),box-shadow .22s,border-color .22s;
+  position:relative;overflow:hidden;
+  animation:fadeUp .32s cubic-bezier(.25,.46,.45,.94) both;
+}
+.wcard:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:var(--accent-mid);}
+.wcard:active{transform:scale(.98);}
+.wcard:nth-child(1){animation-delay:.03s}.wcard:nth-child(2){animation-delay:.06s}.wcard:nth-child(3){animation-delay:.09s}.wcard:nth-child(4){animation-delay:.12s}.wcard:nth-child(5){animation-delay:.15s}.wcard:nth-child(n+6){animation-delay:.17s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+.card-top{display:flex;align-items:flex-start;gap:.5rem;margin-bottom:.5rem;}
+.c-sn{
+  font-size:.65rem;font-weight:800;color:var(--accent);
+  background:var(--accent-soft);padding:2px 8px;border-radius:99px;
+  flex-shrink:0;white-space:nowrap;margin-top:3px;
+}
+.c-question{font-size:1.05rem;font-weight:700;line-height:1.45;flex:1;}
+.c-answer{font-size:.92rem;color:var(--text-sub);line-height:1.55;margin-bottom:.65rem;font-weight:500;}
+.card-meta{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin-bottom:.6rem;}
+.c-tag{
+  font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;
+  background:var(--accent-soft);color:var(--accent);padding:2px 8px;border-radius:99px;
+}
+.c-imp{font-size:.78rem;}
+.c-proverb-en{
+  font-size:.83rem;font-style:italic;color:var(--text-sub);
+  border-left:2.5px solid var(--accent-mid);padding-left:.6rem;
+  line-height:1.55;margin-bottom:.45rem;font-weight:500;
+}
+.c-proverb-bn{
+  font-family:'Noto Serif Bengali',serif;font-size:.95rem;
+  color:var(--text-sub);line-height:1.65;font-weight:600;
+}
+.card-actions{display:flex;gap:.4rem;margin-top:.75rem;flex-wrap:wrap;align-items:center;}
+.card-actions .btn{font-size:.72rem;padding:.38rem .7rem;min-height:auto;}
+
+/* ═══════════ IMPORTANCE STARS ═══════════ */
+.stars{color:#f59e0b;font-size:.85rem;letter-spacing:1px;}
+
+/* ═══════════ MODAL ═══════════ */
+.modal-overlay{
+  position:fixed;top:0;left:0;right:0;bottom:0;
+  background:rgba(0,0,0,.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  z-index:1050;display:flex;align-items:flex-end;justify-content:center;
+  padding:0;padding-bottom:var(--nav-h);overflow:hidden;
+  opacity:0;pointer-events:none;
+  transition:opacity .35s cubic-bezier(.25,.46,.45,.94);
+}
+.modal-overlay.open{opacity:1;pointer-events:auto;}
+.modal-box{
+  background:var(--card-bg);border-radius:var(--radius-xl) var(--radius-xl) 0 0;
+  padding:2rem 1.5rem 1.5rem;width:100%;max-height:85vh;overflow-y:auto;
+  box-shadow:0 -8px 40px rgba(0,0,0,.3);
+  transform:translateY(100%);visibility:hidden;
+  transition:transform .42s cubic-bezier(.32,1.1,.64,1),visibility 0s linear .42s;position:relative;
+}
+.modal-box::before{content:'';position:absolute;top:.75rem;left:50%;transform:translateX(-50%);width:40px;height:4px;background:var(--border);border-radius:99px;}
+.modal-overlay.open .modal-box{transform:translateY(0);visibility:visible;transition:transform .42s cubic-bezier(.32,1.1,.64,1),visibility 0s linear 0s;}
+@media(min-width:560px){
+  .modal-overlay{align-items:center;padding:1.5rem;backdrop-filter:blur(10px);}
+  .modal-box{border-radius:var(--radius-xl);max-width:580px;margin:auto;transform:scale(.92) translateY(20px);opacity:0;padding-top:1.5rem;}
+  .modal-box::before{display:none;}
+  .modal-overlay.open .modal-box{transform:scale(1) translateY(0);opacity:1;}
+}
+.modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--text-sub);width:2rem;height:2rem;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:background .15s;}
+.modal-close:hover{background:var(--ex-bg);}
+.modal-sn{font-size:.68rem;font-weight:800;color:var(--accent);background:var(--accent-soft);padding:3px 10px;border-radius:99px;display:inline-block;margin-bottom:.6rem;}
+.modal-question{font-size:1.45rem;font-weight:800;line-height:1.35;margin-bottom:.5rem;}
+.modal-answer{font-size:1.05rem;line-height:1.65;color:var(--text-sub);font-weight:500;margin-bottom:1rem;padding:1rem;background:var(--ex-bg);border-radius:var(--radius-md);}
+.modal-lbl{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--text-sub);margin-bottom:.4rem;}
+.modal-block{margin-bottom:1rem;}
+.modal-proverb-en{font-style:italic;color:var(--text-sub);line-height:1.6;border-left:3px solid var(--accent);padding-left:.75rem;font-weight:600;font-size:.95rem;}
+.modal-proverb-bn{font-family:'Noto Serif Bengali',serif;font-size:1.1rem;font-weight:600;line-height:1.65;}
+.modal-meta{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin-bottom:1rem;}
+
+/* ═══════════ PAGINATION ═══════════ */
+#pag-box{display:flex;align-items:center;gap:.3rem;flex-wrap:wrap;justify-content:center;padding:1rem 0;}
+
+/* ═══════════ EMPTY / ERROR ═══════════ */
+.empty-state{
+  grid-column:1/-1;padding:3.5rem 1.5rem;text-align:center;
+  background:var(--card-bg);border-radius:var(--radius-xl);border:1.5px solid var(--border);
+}
+.empty-state h3{font-size:1.3rem;margin-bottom:.5rem;}
+.empty-state p{color:var(--text-sub);font-size:.9rem;}
+
+/* ═══════════ SKELETON ═══════════ */
+.skeleton-card{
+  background:var(--card-bg);border-radius:var(--radius-lg);
+  border:1.5px solid var(--border);height:180px;
+  position:relative;overflow:hidden;
+}
+.skeleton-card::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent 30%,rgba(255,255,255,.13) 50%,transparent 70%);
+  background-size:200% 100%;
+  animation:shimmer 1.8s ease infinite;
+}
+html.dark .skeleton-card::after{background:linear-gradient(90deg,transparent 30%,rgba(255,255,255,.05) 50%,transparent 70%);background-size:200% 100%;}
+@keyframes shimmer{from{background-position:200% 0}to{background-position:-200% 0}}
+
+/* ═══════════ TOAST ═══════════ */
+#toast{
+  position:fixed;bottom:calc(var(--nav-h) + .75rem);left:50%;
+  transform:translateX(-50%) translateY(8px);
+  background:#1e293b;color:#fff;padding:10px 22px;border-radius:99px;
+  font-size:.82rem;opacity:0;
+  transition:opacity .3s,transform .3s;
+  pointer-events:none;z-index:9999;font-weight:600;white-space:nowrap;
+  box-shadow:0 4px 20px rgba(0,0,0,.25);
+}
+@media(min-width:768px){#toast{bottom:1.5rem;}}
+
+/* ═══════════ BOTTOM NAV (mobile) ═══════════ */
+.bottom-nav{
+  position:fixed;bottom:0;left:0;right:0;height:var(--nav-h);
+  background:linear-gradient(180deg,rgba(248,250,255,0.82) 0%,rgba(240,244,255,0.92) 100%);
+  backdrop-filter:blur(28px) saturate(2.2);-webkit-backdrop-filter:blur(28px) saturate(2.2);
+  border-top:1px solid rgba(255,255,255,0.6);
+  box-shadow:0 -1px 0 rgba(255,255,255,.85) inset,0 -4px 24px rgba(37,99,200,.09);
+  display:flex;justify-content:space-around;align-items:stretch;
+  z-index:800;padding-bottom:env(safe-area-inset-bottom,0);
+}
+html.dark .bottom-nav{
+  background:linear-gradient(180deg,rgba(13,18,28,0.82) 0%,rgba(10,14,24,0.9) 100%);
+  border-top:1px solid rgba(255,255,255,0.08);
+  box-shadow:0 -1px 0 rgba(255,255,255,.05) inset,0 -4px 24px rgba(0,0,0,.4);
+}
+.nav-item{
+  border:none;background:none;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;color:var(--text-sub);
+  flex:1;cursor:pointer;padding:.3rem 0;
+  transition:color var(--transition);
+  font-family:inherit;position:relative;
+}
+.nav-item::after{
+  content:'';position:absolute;top:0;left:20%;right:20%;height:2px;
+  background:var(--accent);border-radius:0 0 4px 4px;
+  transform:scaleX(0);transition:transform .3s cubic-bezier(.34,1.56,.64,1);
+}
+.nav-item.active{color:var(--accent);}
+.nav-item.active::after{transform:scaleX(1);}
+.nav-icon{font-size:1.25rem;line-height:1;display:flex;align-items:center;justify-content:center;height:1.4rem;}
+.nav-label{font-size:.58rem;font-weight:700;margin-top:3px;letter-spacing:.02em;}
+
+/* Desktop nav */
+.desktop-nav{display:none;gap:.2rem;flex-wrap:wrap;align-items:center;}
+.d-nav-item{
+  background:none;border:none;color:var(--text-sub);font-weight:700;
+  font-size:.8rem;cursor:pointer;padding:.36rem .72rem;border-radius:var(--radius-sm);
+  transition:background var(--transition),color var(--transition);
+  font-family:inherit;
+}
+.d-nav-item:hover,.d-nav-item.active{color:var(--accent);background:var(--accent-soft);}
+@media(min-width:768px){
+  .desktop-nav{display:flex;}
+  .bottom-nav{display:none!important;}
+  body{padding-bottom:2.5rem;}
+  #nav-toggle{display:none!important;}
+  .word-grid{grid-template-columns:repeat(auto-fill,minmax(320px,1fr));}
+}
+
+/* ═══════════ SECTION ═══════════ */
+section{animation:fadeUp .35s cubic-bezier(.25,.46,.45,.94) both;}
+.hidden{display:none!important;}
+
+/* ═══════════ RESPONSIVE ═══════════ */
+@media(max-width:767px){
+  .desktop-nav{display:none;}
+  .controls{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;}
+  #search-input{grid-column:span 2;}
+  .main-container{padding:.75rem;}
+}
+
+/* ═══════════ DETAIL VIEW ═══════════ */
+.detail-card{
+  background:var(--card-bg);border-radius:var(--radius-xl);
+  border:2px solid var(--border);max-width:680px;margin:0 auto;
+  box-shadow:var(--shadow-lg);overflow:hidden;
+}
+.detail-header{
+  background:linear-gradient(135deg,var(--accent-soft),var(--bg-main));
+  padding:2rem 1.5rem 1.5rem;border-bottom:2px solid var(--border);
+}
+.detail-body{padding:1.5rem;}
+.detail-question{font-size:clamp(1.4rem,4.5vw,2rem);font-weight:800;line-height:1.35;margin-bottom:.6rem;}
+.detail-sn{font-size:.68rem;font-weight:800;color:var(--accent);background:var(--accent-soft);padding:3px 10px;border-radius:99px;display:inline-flex;align-items:center;gap:.3rem;margin-bottom:.8rem;}
+.detail-answer{
+  font-size:1.05rem;line-height:1.7;color:var(--text-sub);font-weight:500;
+  padding:1.1rem;background:var(--ex-bg);border-radius:var(--radius-md);margin-bottom:1.2rem;
+}
+.detail-proverb-en{
+  font-style:italic;line-height:1.65;border-left:3px solid var(--accent);
+  padding-left:.75rem;font-size:.95rem;color:var(--text-sub);font-weight:600;margin-bottom:.75rem;
+}
+.detail-proverb-bn{
+  font-family:'Noto Serif Bengali',serif;font-size:1.15rem;font-weight:600;
+  line-height:1.7;color:var(--text-main);
+}
+.detail-nav{display:flex;gap:.5rem;justify-content:space-between;margin-top:1.2rem;}
+.detail-nav .btn{flex:1;}
+
+/* ═══════════ MOBILE MENU ═══════════ */
+#mobile-menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1050;opacity:0;pointer-events:none;transition:opacity .32s;backdrop-filter:blur(4px);}
+#mobile-menu-overlay.open{opacity:1;pointer-events:auto;}
+#mobile-menu-panel{position:fixed;top:0;right:0;bottom:0;width:min(280px,80vw);background:var(--card-bg);z-index:1060;transform:translateX(100%);transition:transform .38s;display:flex;flex-direction:column;border-left:1px solid var(--border);box-shadow:-8px 0 40px rgba(0,0,0,.22);}
+#mobile-menu-panel.open{transform:translateX(0);}
+.mobile-menu-header{padding:1.2rem 1rem 1rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.mobile-menu-title{font-size:1rem;font-weight:800;color:var(--text-main);}
+.mobile-menu-close{width:2rem;height:2rem;border-radius:50%;border:1.5px solid var(--border);background:var(--bg-main);color:var(--text-main);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.9rem;}
+.mobile-menu-body{flex:1;overflow-y:auto;padding:.5rem;display:flex;flex-direction:column;gap:.2rem;}
+.mobile-menu-item{display:flex;align-items:center;gap:.75rem;padding:.85rem .9rem;border-radius:var(--radius-md);border:none;background:none;color:var(--text-main);font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;width:100%;text-align:left;transition:background var(--transition),color var(--transition);}
+.mobile-menu-item:hover,.mobile-menu-item.active{background:var(--accent-soft);color:var(--accent);}
+.mmi-icon{font-size:1.2rem;width:1.6rem;text-align:center;flex-shrink:0;}
+.mobile-menu-footer{padding:.75rem 1rem;border-top:1px solid var(--border);display:flex;gap:.5rem;}
+.mobile-menu-footer .action-btn{flex:1;border-radius:var(--radius-sm);width:auto;height:2.4rem;}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HEADER ═══════════ -->
+<header class="header" id="main-header">
+  <div class="header-inner">
+    <div class="header-top">
+      <div class="logo" onclick="showV('browse')" tabindex="0" role="button" aria-label="Go to Browse">Q&amp;<span>A</span></div>
+      <nav class="desktop-nav" aria-label="Desktop navigation">
+        <button class="d-nav-item active" onclick="showV('browse')">📚 Browse</button>
+        <button class="d-nav-item" onclick="showV('detail')">🔍 Detail</button>
+      </nav>
+      <div class="header-actions">
+        <button class="action-btn" id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">🌙</button>
+        <button class="action-btn" id="f-inc" title="Increase font size" aria-label="Increase font">A+</button>
+        <button class="action-btn" id="f-dec" title="Decrease font size" aria-label="Decrease font">A-</button>
+        <button class="action-btn" id="nav-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+
+    <!-- Stats chips -->
+    <div class="stats-row">
+      <div class="stat-chip total" id="st-all" onclick="filterByStat('')" tabindex="0" role="button" aria-label="Show all">
+        <span class="chip-label">Total</span>
+        <span class="chip-val" id="c-all">–</span>
+      </div>
+      <div class="stat-chip" style="border-color:var(--correct);color:var(--correct)" id="st-imp" onclick="filterByStat('imp')" tabindex="0" role="button" aria-label="Show important">
+        <span class="chip-label">Important</span>
+        <span class="chip-val" id="c-imp">–</span>
+      </div>
+      <div class="stat-chip starred" id="st-star" onclick="filterByStat('star')" tabindex="0" role="button" aria-label="Show starred">
+        <span class="chip-label">★ Top</span>
+        <span class="chip-val" id="c-star">–</span>
+      </div>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div id="overall-progress-fill"></div>
+    </div>
+  </div>
+</header>
+<div id="header-spacer"></div>
+
+<!-- ═══════════ MOBILE MENU ═══════════ -->
+<div id="mobile-menu-overlay" onclick="closeMobileMenu()"></div>
+<div id="mobile-menu-panel">
+  <div class="mobile-menu-header">
+    <span class="mobile-menu-title">Menu</span>
+    <button class="mobile-menu-close" onclick="closeMobileMenu()" aria-label="Close menu">✕</button>
+  </div>
+  <div class="mobile-menu-body">
+    <button class="mobile-menu-item active" data-view="browse" onclick="showV('browse');closeMobileMenu()"><span class="mmi-icon">📚</span>Browse</button>
+    <button class="mobile-menu-item" data-view="detail" onclick="showV('detail');closeMobileMenu()"><span class="mmi-icon">🔍</span>Detail View</button>
+  </div>
+  <div class="mobile-menu-footer">
+    <button class="action-btn" id="mm-theme-toggle" title="Toggle dark mode">🌙</button>
+  </div>
+</div>
+
+<!-- ═══════════ TOAST ═══════════ -->
+<div id="toast" role="status" aria-live="polite"></div>
+
+<!-- ═══════════ MODAL ═══════════ -->
+<div class="modal-overlay" id="word-modal" onclick="closeModal(event)" role="dialog" aria-modal="true" aria-labelledby="modal-question-el">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeWordModal()" aria-label="Close">✕</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<!-- ═══════════ MAIN ═══════════ -->
+<main>
+  <div class="main-container">
+
+    <!-- ── BROWSE ── -->
+    <section id="v-browse">
+      <div class="controls">
+        <input id="search-input" type="search" placeholder="🔍 Search question, answer, proverb…" oninput="curPg=1;renderBrowse()" autocomplete="off">
+        <select id="f-cat" onchange="curPg=1;renderBrowse()">
+          <option value="">All Categories</option>
+        </select>
+        <select id="f-imp" onchange="curPg=1;renderBrowse()">
+          <option value="">All Importance</option>
+          <option value="5">⭐⭐⭐⭐⭐ (5)</option>
+          <option value="4">⭐⭐⭐⭐ (4+)</option>
+          <option value="3">⭐⭐⭐ (3+)</option>
+        </select>
+        <select id="f-sort" onchange="curPg=1;renderBrowse()">
+          <option value="default">Sort: Default</option>
+          <option value="az">Sort: A–Z</option>
+          <option value="imp-desc">Sort: Importance ↓</option>
+          <option value="imp-asc">Sort: Importance ↑</option>
+          <option value="newest">Sort: Newest</option>
+        </select>
+      </div>
+      <div id="grid-browse" class="word-grid" role="list"></div>
+      <div id="pag-box" role="navigation" aria-label="Pagination"></div>
+    </section>
+
+    <!-- ── DETAIL VIEW ── -->
+    <section id="v-detail" class="hidden">
+      <div class="detail-card" id="detail-card-el">
+        <div style="padding:3rem;text-align:center;color:var(--text-sub)">
+          <div style="font-size:2.5rem;margin-bottom:1rem">🔍</div>
+          <p style="font-weight:600">Click any card to see details here, or use the Browse tab.</p>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:center;gap:.5rem;margin-top:1rem;flex-wrap:wrap;">
+        <button class="btn btn-outline" onclick="showV('browse')">← Back to Browse</button>
+        <button class="btn btn-outline" id="detail-prev-btn" onclick="detailNav(-1)" style="display:none">◀ Previous</button>
+        <button class="btn btn-outline" id="detail-next-btn" onclick="detailNav(1)" style="display:none">Next ▶</button>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- ═══════════ BOTTOM NAV ═══════════ -->
+<nav class="bottom-nav" id="main-nav" aria-label="Main navigation">
+  <button class="nav-item active" onclick="showV('browse')">
+    <div class="nav-icon">📚</div><div class="nav-label">Browse</div>
+  </button>
+  <button class="nav-item" onclick="showV('detail')">
+    <div class="nav-icon">🔍</div><div class="nav-label">Detail</div>
+  </button>
+</nav>
+
+<!-- ═══════════ JAVASCRIPT ═══════════ -->
+<script>
+'use strict';
+
+/* ══ STATE ══════════════════════════════════════ */
+let data = [];
+let curPg = 1;
+const pgSize = 18;
+let currentFontSize = parseInt(localStorage.getItem('qaFont')) || 16;
+let statFilter = '';
+let detailIdx = 0;
+let filteredList = [];
+
+const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQVO00rJWyGaGm_kTqfKkgkZ-hPdNBQBk4uzvrk-_NLZyYhUsu7gmFx1N10wgXYh3btjB5H9rGnNDRc/pub?gid=0&single=true&output=csv';
+const CSV_KEY = 'qaCSVCache';
+const CSV_TS  = 'qaCSVTS';
+const CSV_AGE = 6 * 60 * 60 * 1000;
+
+/* ══ UTILS ══════════════════════════════════════ */
+function triggerHaptic(){ try{ if(navigator.vibrate) navigator.vibrate(10); }catch(e){} }
+let _toast; 
+function showToast(msg, dur=2500){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.style.opacity='1'; t.style.transform='translateX(-50%) translateY(0)';
+  clearTimeout(_toast);
+  _toast = setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateX(-50%) translateY(8px)'; }, dur);
+}
+function esc(s){ return (s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;'); }
+function stars(n){ 
+  n = Math.min(5, Math.max(0, parseInt(n)||0));
+  return n > 0 ? '⭐'.repeat(n) : '';
+}
+
+/* ══ FONT SIZE ══════════════════════════════════ */
+function setFS(){ document.documentElement.style.fontSize = currentFontSize + 'px'; try{ localStorage.setItem('qaFont', currentFontSize); }catch(e){} }
+document.getElementById('f-inc').onclick = ()=>{ triggerHaptic(); if(currentFontSize<26){ currentFontSize+=2; setFS(); showToast('Font: '+currentFontSize+'px'); } };
+document.getElementById('f-dec').onclick = ()=>{ triggerHaptic(); if(currentFontSize>10){ currentFontSize-=2; setFS(); showToast('Font: '+currentFontSize+'px'); } };
+
+/* ══ THEME ══════════════════════════════════════ */
+const themeBtn = document.getElementById('theme-toggle');
+themeBtn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+function toggleTheme(){
+  triggerHaptic();
+  const d = document.documentElement.classList.toggle('dark');
+  try{ localStorage.setItem('qaDark', d ? 'dark' : 'light'); }catch(e){}
+  themeBtn.textContent = d ? '☀️' : '🌙';
+  const mm = document.getElementById('mm-theme-toggle');
+  if(mm) mm.textContent = d ? '☀️' : '🌙';
+}
+themeBtn.onclick = toggleTheme;
+document.getElementById('mm-theme-toggle').onclick = toggleTheme;
+
+/* ══ HEADER SPACER ══════════════════════════════ */
+function measureHeader(){
+  const h = document.getElementById('main-header');
+  if(h) document.documentElement.style.setProperty('--hdr-h', h.offsetHeight + 'px');
+}
+window.addEventListener('load', measureHeader);
+window.addEventListener('resize', measureHeader, {passive:true});
+
+/* ══ MOBILE MENU ════════════════════════════════ */
+document.getElementById('nav-toggle').onclick = ()=>{ triggerHaptic(); openMobileMenu(); };
+function openMobileMenu(){
+  document.getElementById('mobile-menu-overlay').classList.add('open');
+  document.getElementById('mobile-menu-panel').classList.add('open');
+  document.getElementById('nav-toggle').setAttribute('aria-expanded','true');
+  document.body.style.overflow='hidden';
+}
+function closeMobileMenu(){
+  document.getElementById('mobile-menu-overlay').classList.remove('open');
+  document.getElementById('mobile-menu-panel').classList.remove('open');
+  document.getElementById('nav-toggle').setAttribute('aria-expanded','false');
+  document.body.style.overflow='';
+}
+
+/* ══ SECTION SWITCHER ═══════════════════════════ */
+const ALL_VIEWS = ['browse','detail'];
+function showV(v){
+  triggerHaptic();
+  ALL_VIEWS.forEach(id => document.getElementById('v-'+id).classList.add('hidden'));
+  document.getElementById('v-'+v).classList.remove('hidden');
+  document.querySelectorAll('.nav-item, .d-nav-item').forEach(n=>n.classList.remove('active'));
+  document.querySelectorAll('.mobile-menu-item[data-view]').forEach(n=>n.classList.remove('active'));
+  const mi = ALL_VIEWS.indexOf(v);
+  const navItems = document.querySelectorAll('.nav-item');
+  const dNavItems = document.querySelectorAll('.d-nav-item');
+  if(navItems[mi]) navItems[mi].classList.add('active');
+  if(dNavItems[mi]) dNavItems[mi].classList.add('active');
+  document.querySelectorAll(`.mobile-menu-item[data-view="${v}"]`).forEach(n=>n.classList.add('active'));
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* ══ CSV PARSER ════════════════════════════════ */
+function parseCSV(text){
+  const lines = text.split(/\r?\n/).filter(l => l.trim());
+  const result = [];
+  for(let i = 1; i < lines.length; i++){
+    const row = []; let cell='', inQ=false;
+    for(const ch of lines[i]){
+      if(ch==='"'){ inQ=!inQ; }
+      else if(ch===',' && !inQ){ row.push(cell.trim()); cell=''; }
+      else cell+=ch;
+    }
+    row.push(cell.trim());
+    // Columns: SN(0), Question(1), Answer(2), Category(3), Importance(4), Proverb_en(5), Proverb_bn(6)
+    if(row[1]){
+      result.push({
+        sn:         row[0] || String(i),
+        question:   row[1] || '',
+        answer:     row[2] || '',
+        category:   row[3] || 'General',
+        importance: parseInt(row[4]) || 0,
+        proverb_en: row[5] || '',
+        proverb_bn: row[6] || ''
+      });
+    }
+  }
+  return result;
+}
+
+/* ══ LOAD DATA ══════════════════════════════════ */
+async function loadData(){
+  document.getElementById('grid-browse').innerHTML =
+    Array(9).fill('<div class="skeleton-card"></div>').join('');
+
+  // Try cache first
+  try{
+    const cached = localStorage.getItem(CSV_KEY);
+    const ts = parseInt(localStorage.getItem(CSV_TS)||'0');
+    if(cached && (Date.now()-ts) < CSV_AGE){
+      data = parseCSV(cached);
+      if(data.length){ initFilters(); renderBrowse(); updateStats(); refreshInBackground(); return; }
+    }
+  }catch(e){}
+
+  // Fetch fresh
+  try{
+    const res = await fetch(CSV_URL, {cache:'default'});
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const text = await res.text();
+    data = parseCSV(text);
+    if(!data.length) throw new Error('Empty');
+    try{ localStorage.setItem(CSV_KEY, text); localStorage.setItem(CSV_TS, Date.now()); }catch(e){}
+    initFilters(); renderBrowse(); updateStats();
+  }catch(e){
+    document.getElementById('grid-browse').innerHTML = `
+      <div class="empty-state">
+        <h3>⚠️ Connection Error</h3>
+        <p>Could not load data. Check your internet connection.</p><br>
+        <button class="btn btn-primary" onclick="loadData()" style="margin:0 auto;display:block">🔄 Retry</button>
+      </div>`;
+    showToast('⚠️ Failed to load data');
+  }
+}
+
+async function refreshInBackground(){
+  try{
+    const res = await fetch(CSV_URL, {cache:'no-cache'});
+    if(!res.ok) return;
+    const text = await res.text();
+    const d = parseCSV(text);
+    if(d.length){ try{ localStorage.setItem(CSV_KEY, text); localStorage.setItem(CSV_TS, Date.now()); }catch(e){} }
+  }catch(e){}
+}
+
+/* ══ STATS ══════════════════════════════════════ */
+function updateStats(){
+  const total = data.length;
+  const impCnt = data.filter(d => d.importance >= 4).length;
+  const starCnt = data.filter(d => d.importance >= 5).length;
+  document.getElementById('c-all').textContent = total;
+  document.getElementById('c-imp').textContent = impCnt;
+  document.getElementById('c-star').textContent = starCnt;
+  const pct = total > 0 ? Math.round(impCnt / total * 100) : 0;
+  document.getElementById('overall-progress-fill').style.width = pct + '%';
+}
+
+/* ══ STAT CHIP FILTER ═══════════════════════════ */
+function filterByStat(status){
+  triggerHaptic(); statFilter = status; showV('browse');
+  document.querySelectorAll('.stat-chip').forEach(c=>c.classList.remove('active-chip'));
+  if(status === '') document.getElementById('st-all').classList.add('active-chip');
+  if(status === 'imp') document.getElementById('st-imp').classList.add('active-chip');
+  if(status === 'star') document.getElementById('st-star').classList.add('active-chip');
+  curPg=1; renderBrowse();
+}
+document.getElementById('st-all').onclick = ()=>filterByStat('');
+document.getElementById('st-imp').onclick = ()=>filterByStat('imp');
+document.getElementById('st-star').onclick = ()=>filterByStat('star');
+
+/* ══ INIT FILTERS ═══════════════════════════════ */
+function initFilters(){
+  const cats = [...new Set(data.map(d => d.category).filter(Boolean))].sort();
+  const catSel = document.getElementById('f-cat');
+  catSel.innerHTML = '<option value="">All Categories</option>' +
+    cats.map(c => `<option value="${c}">${c}</option>`).join('');
+}
+
+/* ══ GOOGLE SEARCH ══════════════════════════════ */
+function googleSearch(question){
+  triggerHaptic();
+  const url = 'https://www.google.com/search?q=' + encodeURIComponent(question);
+  window.open(url, '_blank', 'noopener,noreferrer');
+}
+
+/* ══ CREATE CARD HTML ═══════════════════════════ */
+function createCard(d, idx){
+  const starsHtml = d.importance > 0 ? `<span class="stars">${'⭐'.repeat(Math.min(5,d.importance))}</span>` : '';
+  const proEn = d.proverb_en ? `<div class="c-proverb-en">💬 ${d.proverb_en}</div>` : '';
+  const proBn = d.proverb_bn ? `<div class="c-proverb-bn">${d.proverb_bn}</div>` : '';
+  return `
+    <article class="wcard" role="listitem" onclick="openDetailFromCard(${idx})" tabindex="0" onkeydown="if(event.key==='Enter')openDetailFromCard(${idx})">
+      <div class="card-top">
+        <span class="c-sn">#${d.sn}</span>
+        <div class="c-question">${d.question}</div>
+      </div>
+      ${d.answer ? `<div class="c-answer">${d.answer.length > 120 ? d.answer.slice(0,120)+'…' : d.answer}</div>` : ''}
+      <div class="card-meta">
+        ${d.category ? `<span class="c-tag">${d.category}</span>` : ''}
+        ${starsHtml}
+      </div>
+      ${proEn}${proBn}
+      <div class="card-actions" onclick="event.stopPropagation()">
+        <button class="btn btn-google" onclick="googleSearch('${esc(d.question)}')" title="Search on Google">
+          <svg width="12" height="12" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" fill="#fff" fill-opacity=".9"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z" fill="#fff" fill-opacity=".75"/><path d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#fff" fill-opacity=".6"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#fff" fill-opacity=".8"/></svg>
+          Google
+        </button>
+        <button class="btn btn-outline" onclick="openDetailFromCard(${idx})" style="font-size:.72rem;padding:.38rem .7rem;min-height:auto">👁 Details</button>
+      </div>
+    </article>`;
+}
+
+/* ══ OPEN DETAIL FROM CARD ══════════════════════ */
+function openDetailFromCard(idx){
+  triggerHaptic();
+  detailIdx = idx;
+  renderDetail(idx);
+  showV('detail');
+}
+
+/* ══ RENDER BROWSE ══════════════════════════════ */
+function renderBrowse(scroll=true){
+  const q   = document.getElementById('search-input').value.toLowerCase().trim();
+  const cat = document.getElementById('f-cat').value;
+  const imp = document.getElementById('f-imp').value;
+  const srt = document.getElementById('f-sort').value;
+
+  filteredList = data.filter(d => {
+    const ms = !q ||
+      d.question.toLowerCase().includes(q) ||
+      d.answer.toLowerCase().includes(q) ||
+      d.proverb_en.toLowerCase().includes(q) ||
+      d.proverb_bn.includes(q) ||
+      d.category.toLowerCase().includes(q) ||
+      d.sn.toLowerCase().includes(q);
+    const mc = !cat || d.category === cat;
+    const mi = !imp || d.importance >= parseInt(imp);
+    const ms2 = !statFilter ||
+      (statFilter === 'imp' && d.importance >= 4) ||
+      (statFilter === 'star' && d.importance >= 5);
+    return ms && mc && mi && ms2;
+  });
+
+  if(srt === 'az')       filteredList = [...filteredList].sort((a,b)=>a.question.localeCompare(b.question));
+  else if(srt === 'imp-desc') filteredList = [...filteredList].sort((a,b)=>b.importance-a.importance);
+  else if(srt === 'imp-asc')  filteredList = [...filteredList].sort((a,b)=>a.importance-b.importance);
+  else if(srt === 'newest')   filteredList = [...filteredList].reverse();
+
+  const total = filteredList.length;
+  const tp = Math.ceil(total/pgSize) || 1;
+  if(curPg > tp) curPg = tp;
+  const start = (curPg-1)*pgSize;
+  const page = filteredList.slice(start, start+pgSize);
+
+  const grid = document.getElementById('grid-browse');
+  if(!page.length){
+    grid.innerHTML = `<div class="empty-state"><h3>🔍 No results</h3><p>Try a different search or filter.</p></div>`;
+  } else {
+    grid.innerHTML = page.map((d, localIdx) => createCard(d, start+localIdx)).join('');
+  }
+  renderPag(tp, total);
+  if(scroll) window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* ══ RENDER PAGINATION ══════════════════════════ */
+function renderPag(total, count){
+  const box = document.getElementById('pag-box');
+  if(total <= 1){
+    box.innerHTML = count
+      ? `<small style="color:var(--text-sub);font-weight:600">${count} item${count>1?'s':''} found</small>` : '';
+    return;
+  }
+  let html = `<small style="color:var(--text-sub);font-weight:600;margin-right:.4rem">${count} items</small>`;
+  for(let i=1; i<=total; i++){
+    if(i===1 || i===total || Math.abs(i-curPg)<=1){
+      html += `<button class="btn ${i===curPg?'btn-primary':'btn-outline'}" style="min-width:34px;padding:5px 6px;font-size:.8rem" onclick="setPg(${i})" aria-label="Page ${i}"${i===curPg?' aria-current="page"':''}>${i}</button>`;
+    } else if(Math.abs(i-curPg)===2){
+      html += `<span style="opacity:.35;align-self:center">…</span>`;
+    }
+  }
+  box.innerHTML = html;
+}
+function setPg(p){ triggerHaptic(); curPg=p; renderBrowse(); }
+
+/* ══ DETAIL VIEW ════════════════════════════════ */
+function renderDetail(idx){
+  const d = filteredList[idx];
+  if(!d){ document.getElementById('detail-card-el').innerHTML = '<div style="padding:3rem;text-align:center;color:var(--text-sub)"><p style="font-weight:600">No item found.</p></div>'; return; }
+
+  const starsHtml = d.importance > 0 ? `<span class="stars">${'⭐'.repeat(Math.min(5,d.importance))}</span>` : '';
+
+  document.getElementById('detail-card-el').innerHTML = `
+    <div class="detail-header">
+      <div class="detail-sn"># ${d.sn} ${starsHtml}</div>
+      <div class="detail-question">${d.question}</div>
+      <div class="card-meta" style="margin-top:.5rem">
+        ${d.category ? `<span class="c-tag">${d.category}</span>` : ''}
+        ${d.importance > 0 ? `<span style="font-size:.75rem;color:var(--text-sub);font-weight:600">Importance: ${d.importance}/5</span>` : ''}
+      </div>
+    </div>
+    <div class="detail-body">
+      ${d.answer ? `<div class="modal-lbl">Answer</div><div class="detail-answer">${d.answer}</div>` : ''}
+      ${d.proverb_en ? `<div class="modal-block">
+        <div class="modal-lbl">Proverb (English)</div>
+        <div class="detail-proverb-en">💬 ${d.proverb_en}</div>
+      </div>` : ''}
+      ${d.proverb_bn ? `<div class="modal-block">
+        <div class="modal-lbl">Proverb (বাংলা)</div>
+        <div class="detail-proverb-bn">${d.proverb_bn}</div>
+      </div>` : ''}
+      <div style="display:flex;gap:.5rem;margin-top:1.2rem;flex-wrap:wrap">
+        <button class="btn-google" onclick="googleSearch('${esc(d.question)}')" style="display:flex;align-items:center;gap:.4rem;padding:.55rem 1rem;border-radius:var(--radius-sm);cursor:pointer;font-family:inherit;font-weight:700;font-size:.85rem;background:linear-gradient(135deg,#4285f4,#34a853);color:#fff;border:none;transition:opacity .18s">
+          <svg width="14" height="14" viewBox="0 0 18 18" fill="none"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" fill="#fff" fill-opacity=".9"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z" fill="#fff" fill-opacity=".75"/><path d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#fff" fill-opacity=".6"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#fff" fill-opacity=".8"/></svg>
+          Search on Google
+        </button>
+      </div>
+    </div>`;
+
+  // Prev/Next nav
+  const prevBtn = document.getElementById('detail-prev-btn');
+  const nextBtn = document.getElementById('detail-next-btn');
+  prevBtn.style.display = idx > 0 ? '' : 'none';
+  nextBtn.style.display = idx < filteredList.length-1 ? '' : 'none';
+}
+
+function detailNav(dir){
+  triggerHaptic();
+  const newIdx = detailIdx + dir;
+  if(newIdx >= 0 && newIdx < filteredList.length){
+    detailIdx = newIdx;
+    renderDetail(detailIdx);
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+}
+
+/* ══ MODAL ══════════════════════════════════════ */
+function closeWordModal(){
+  document.getElementById('word-modal').classList.remove('open');
+  document.body.style.overflow='';
+}
+function closeModal(e){ if(e.target.id==='word-modal') closeWordModal(); }
+
+/* ══ KEYBOARD ═══════════════════════════════════ */
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape') closeWordModal();
+  if(!document.getElementById('v-detail').classList.contains('hidden')){
+    if(e.key==='ArrowLeft') detailNav(-1);
+    if(e.key==='ArrowRight') detailNav(1);
+  }
+});
+
+/* ══ ONLINE STATUS ══════════════════════════════ */
+window.addEventListener('offline', ()=>showToast('📴 Offline — using cached data', 4000));
+window.addEventListener('online',  ()=>showToast('🌐 Back online!', 2000));
+
+/* ══ SERVICE WORKER ═════════════════════════════ */
+if('serviceWorker' in navigator){
+  const swCode = `
+const CACHE='qa-sw-v1';
+self.addEventListener('install',e=>{self.skipWaiting();});
+self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==CACHE).map(x=>caches.delete(x)))));self.clients.claim();});
+self.addEventListener('fetch',e=>{
+  if(e.request.url.includes('docs.google.com')){e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));return;}
+  if(e.request.url.startsWith('http')){
+    e.respondWith(caches.match(e.request).then(c=>c||fetch(e.request).then(r=>{
+      if(r&&r.status===200){const cl=r.clone();caches.open(CACHE).then(ca=>ca.put(e.request,cl));}return r;
+    }).catch(()=>c)));
+  }
+});`;
+  try{
+    const blob = new Blob([swCode],{type:'application/javascript'});
+    navigator.serviceWorker.register(URL.createObjectURL(blob),{scope:'/'}).catch(()=>{});
+  }catch(e){}
+}
+
+/* ══ INIT ═══════════════════════════════════════ */
+window.addEventListener('load', loadData);
+document.addEventListener('visibilitychange', ()=>{
+  if(document.hidden && window.speechSynthesis) window.speechSynthesis.cancel();
+});
+</script>
+</body>
+</html>
